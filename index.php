@@ -4,23 +4,32 @@
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css"
         integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
     <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
-
+    
 </head>
 
 <body>
     <H1>旅行用記帳平分器 測試版V.0.004</H1>
+
+    <button class="btn btn-outline-primary" type="button" data-toggle="collapse" data-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
+    新增入物
+  </button>
+
     <div id="payMainMoneyPeople">
         <h2>請輸入或建立</h2>
         <input id="ecToken" required="required" type="text" name="token" placeholder="請輸入或建立" />
         <button type="button" class="btn btn-outline-info" onclick="enterToken();">輸入</button>
         <button type="button" class="btn btn-outline-info" onclick="createToken()">建立</button>
-    </div>
-    <br><br><br><br>
 
-    <h2>請輸入以建立人物名稱</h2>
+  
+    </div>
+    <br>
+    <div class="collapse" id="collapseExample">
+  
+  <h2>請輸入以建立人物名稱</h2>
     <input id="createName" type="text" name="token" placeholder="請輸入或建立" />
     <button type="button" class="btn btn-outline-info" onclick="createName()">輸入</button>
-    <br><br><br><br>
+  
+</div>
 
     <h1> 目前人物成員有:
         <a id="number"> </a>
@@ -72,6 +81,38 @@
 
     </br>
     <script>
+        let getUrlString = location.href;
+        let url = new URL(getUrlString);
+        let get = url.searchParams.get('token');
+
+        if (get == null || get == '') {
+        //     abc();
+        // } else {
+        //     document.getElementById('ecToken').value = get;
+        //     enterToken();
+        }else{
+            document.getElementById('ecToken').value = get;
+        }
+       
+        // function abc() {
+        //     var input = prompt("請輸入token");
+
+        //     if (input == null || input == '') {
+        //         abc();
+        //     } else {
+        //         document.getElementById('ecToken').value = input;
+        //         input = "";
+        //         enterToken();
+        //     }
+        // }
+        // if (get == null || get == '') {
+        //     abc();
+        // } else {
+        //     document.getElementById('ecToken').value = get;
+        //     enterToken();
+        // }
+
+
         var userMoneyPeople;
         var payMainMoneyPeople;
         var createNamee;
