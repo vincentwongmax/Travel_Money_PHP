@@ -4,36 +4,32 @@
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css"
         integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
     <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
-    
 </head>
 
 <body>
-    <H1>旅行用記帳平分器 測試版V.0.004</H1>
+    <H1>旅行用記帳平分器 測試版V.0.009</H1>
 
     <button class="btn btn-outline-primary" type="button" data-toggle="collapse" data-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
     新增入物
   </button>
 
     <div id="payMainMoneyPeople">
-        <h2>請輸入或建立</h2>
-        <input id="ecToken" required="required" type="text" name="token" placeholder="請輸入或建立" />
+        <h2>請輸入或建立行程代號</h2>
+        <input id="ecToken" required="required" type="text" name="token" placeholder="可數英中台語廣東語馬來文" />
         <button type="button" class="btn btn-outline-info" onclick="enterToken();">輸入</button>
         <button type="button" class="btn btn-outline-info" onclick="createToken()">建立</button>
-
-  
     </div>
     <br>
+<div class="start" id="start"  style="display:none;" >
     <div class="collapse" id="collapseExample">
-  
-  <h2>請輸入以建立人物名稱</h2>
-    <input id="createName" type="text" name="token" placeholder="請輸入或建立" />
-    <button type="button" class="btn btn-outline-info" onclick="createName()">輸入</button>
-  
-</div>
-
+        <h2>請輸入以建立人物名稱</h2>
+        <input id="createName" type="text" name="token" placeholder="請輸入或建立" />
+        <button type="button" class="btn btn-outline-info" onclick="createName()">輸入</button>
+    </div>
     <h1> 目前人物成員有:
         <a id="number"> </a>
-        <h2 id="nameShow"></h2>
+        <button type="button" class="btn btn-outline-info" onclick="openNameShow()">打開</button>
+        <h2 id="nameShow" style="display:none;"></h2>
     </h1>
 
     <br><br>
@@ -43,6 +39,7 @@
         <h3 id="payMainMoneyPeople2"></h3>
         </h1>
     </div>
+
     <br><br>
     <h2>請輸入付款多少錢</h2>
     <input id="howmuchmoney" required="required" type="text" placeholder="請輸入付款多少錢"> </input>
@@ -55,7 +52,6 @@
     </div>
 
     <input type="button" class="btn btn-outline-info" value="提交" onclick="getAll()"><br />
-
 
     <br><br><br>
 
@@ -78,7 +74,7 @@
 
     
     <h4 id="paypaypay"></h4>
-
+</div>
     </br>
     <script>
         let getUrlString = location.href;
@@ -116,7 +112,9 @@
         var userMoneyPeople;
         var payMainMoneyPeople;
         var createNamee;
-
+        function openNameShow(){
+            $('#nameShow').toggle();
+        }
         function getAll() {
             let payMainMoneyPeople = $('input:radio[name="box"]:checked').map(function () {
                 return $(this).val();
@@ -125,9 +123,19 @@
                 return $(this).val();
             }).get().join(",");
             let howmuchmoney = $('#howmuchmoney').val();
-            dataToDB(payMainMoneyPeople, userMoneyPeople, howmuchmoney);
+
+            if(payMainMoneyPeople == undefined || userMoneyPeople == undefined || howmuchmoney ==undefined){
+                alert("輸入內容不允許為空")
+            }else{
+                if(payMainMoneyPeople == '' || userMoneyPeople == '' || howmuchmoney == ''){
+                    alert("輸入內容不允許為空")
+                }else{
+                    dataToDB(payMainMoneyPeople, userMoneyPeople, howmuchmoney);
+                }
+            }
+
             show($('#ecToken').val());
-            $('#howmuchmoney').empty;
+            $('#howmuchmoney').val('');
         }
         function enterToken() {
             axios.post('testdb2.php', {
@@ -137,8 +145,11 @@
                     },
                 })
                 .then(function (response) {
-                    
+                    $('.start').toggle();
                     show($('#ecToken').val());
+                    if($('#ecToken').val() == null || $('#ecToken').val()== ''){
+                        alert('請輸入TOKEN');
+                    }
                     //   console.log(response.data[0]);
                     if (response.data[0] == undefined) {
                         if (confirm('沒有DATA, 建立新的TOEKN?')) {
@@ -161,8 +172,7 @@
                     },
                 })
                 .then(function (response) {
-                    if (response.request.response == 'NO') {
-                        console.log(response.request.response);
+                    if (response.data == 'NOOOOOOOOO') {
                         alert('重覆');
                         return;
                     }
