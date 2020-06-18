@@ -43,7 +43,7 @@
         <h1>付錢人(可多選)</h1>
         <h3 id="userMoneyPeople2"></h3>
         </h1>
-     </div>
+    </div>
 
     <input type="button" class="btn btn-outline-info" value="提交" onclick="getAll()"><br />
 
@@ -62,14 +62,19 @@
         <tbody>
         </tbody>
     </table>
+    <br>
+    <h3 style="color:cadetblue"> 目前每個人的錢 </h3>
+    <h4 id="showPersonMoney"></h4>
+    <br><br><br>
 
-    <h3 id="paypaypay"></h3>
+    <h3 style="color:brown" > 請跟據指示進行付款 </h3>
+    <h4 id="paypaypay"></h4>
 
+    </br>
     <script>
         var userMoneyPeople;
         var payMainMoneyPeople;
         var createNamee;
-
 
         function getAll() {
             let payMainMoneyPeople = $('input:radio[name="box"]:checked').map(function () {
@@ -153,7 +158,7 @@
                                             <td>${i+1}. </td>
                                             <td>${response.data[i].mainpeople}</td>
                                         </tr>
-                                    `
+                            `
                         );
                         if (families[i] == undefined) {
                             families[i] = [];
@@ -232,7 +237,6 @@
                         alert('有錯哦');
                         return;
                     }
-
                     alert('DONE');
                 })
                 .catch(function (error) {
@@ -292,9 +296,8 @@
             }
 
            abc =families;
-           abc.forEach(element => {
-           console.log(element);
-           
+           families.forEach(element => {
+           $('#showPersonMoney').append(`${element.name} =>  ${element.money} <br>`)
          });
 
             families.forEach(element => {
@@ -314,7 +317,6 @@
         }
 
         function wtfwhocare(wtf) {
-
         let people=wtf.length-1;
 
             for (let i = 0; i <= people; i++) //print 人數 
@@ -326,19 +328,18 @@
                     z = x + y;
                     wtf[i].money = wtf[people].money + wtf[i].money;
 
-                    $('#paypaypay').append(`${wtf[people].name} to ${wtf[i].name}          `);
+                    $('#paypaypay').append(`${wtf[people].name} ==>${wtf[i].name}`);
                     if (wtf[i].money != 0) {
                         i = i - 1;
                     }
 
                     if (z > 0) {
                         wtf[people].money = z;
-                    $('#paypaypay').append(`<red> ${x*-1} </red>元<br>`);
-                     
+                        $('#paypaypay').append(`<p style="color:red" >${x*-1} 元<br></p>`);
                         z = 0;
                     } else {
                         people = people - 1;
-                    $('#paypaypay').append(`${y} 元<br>`);
+                        $('#paypaypay').append(`<p style="color:red" >${y} 元<br></p>`);
                     }
                 }
             }
