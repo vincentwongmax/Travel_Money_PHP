@@ -8,7 +8,7 @@
 </head>
 
 <body>
-    <H1>旅行用記帳平分器 測試版V.0.001</H1>
+    <H1>旅行用記帳平分器 測試版V.0.003</H1>
     <div id="payMainMoneyPeople">
         <h2>請輸入或建立</h2>
         <input id="ecToken" required="required" type="text" name="token" placeholder="請輸入或建立" />
