@@ -1,8 +1,9 @@
+### 透過科技去解決生活的大小問題
 # TravelMoney
 測試版公測 v0.0005
 
 ## http://mankinwong.xyz
-或
+# 或
 ## http://mankinwong.xyz?token=123
 
 ### token 後面的數字可以自行更改或輸入, 方便每次記帳時能夠直接進行相對應的帳目
