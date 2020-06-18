@@ -1,10 +1,6 @@
 <head>
     <meta charset="UTF-8">
-    <title>checkBox</title>
-    <!-- <script
-  src="https://code.jquery.com/jquery-3.5.1.min.js"
-  integrity="sha256-9/aliU8dGd2tb6OSsuzixeV4y/faTqgFtohetphbbj0="
-  crossorigin="anonymous"></script> -->
+    <title>旅行用記帳器</title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css"
         integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
     <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
@@ -37,11 +33,6 @@
         <h1>付錢人(單選)</h1>
         <h3 id="payMainMoneyPeople2"></h3>
         </h1>
-        <!-- 黃： <input type="checkbox" name="box" value="黃" /><br>
-                文： <input type="checkbox" name="box" value="文" /><br>
-                建： <input type="checkbox" name="box" value="建" /><br>
-                件： <input type="checkbox" name="box" value="件" /><br>
-                WIN神： <input type="checkbox" name="box" value="WIN神" /><br><br /> -->
     </div>
     <br><br>
     <h2>請輸入付款多少錢</h2>
@@ -52,12 +43,7 @@
         <h1>付錢人(可多選)</h1>
         <h3 id="userMoneyPeople2"></h3>
         </h1>
-        <!-- 黃： <input type="checkbox" name="boxs" value="黃" /><br>
-                文： <input type="checkbox" name="boxs" value="文" /><br>
-                建： <input type="checkbox" name="boxs" value="建" /><br>
-                件： <input type="checkbox" name="boxs" value="件" /><br>
-                WIN神： <input type="checkbox" name="boxs" value="WIN神" /><br /><br> -->
-    </div>
+     </div>
 
     <input type="button" class="btn btn-outline-info" value="提交" onclick="getAll()"><br />
 
@@ -86,46 +72,15 @@
 
 
         function getAll() {
-            // payMainMoneyPeople();
-            // userMoneyPeople()
             let payMainMoneyPeople = $('input:radio[name="box"]:checked').map(function () {
                 return $(this).val();
             }).get().join(",");
-            //  console.log(payMainMoneyPeople);
-
             let userMoneyPeople = $('input:checkbox[name="boxs"]:checked').map(function () {
                 return $(this).val();
             }).get().join(",");
-            //  console.log(userMoneyPeople);
-
             let howmuchmoney = $('#howmuchmoney').val();
-            //   console.log(howmuchmoney);
-            // $('#showWaterBill > tbody').html('');
-            // showWaterBill();
             dataToDB(payMainMoneyPeople, userMoneyPeople, howmuchmoney);
         }
-
-        // function payMainMoneyPeople() {
-        //     var payMainMoneyPeople = $('input:checkbox[name="box"]:checked').map(function () {
-        //         return $(this).val();
-        //     }).get().join(",");
-        //     console.log(payMainMoneyPeople);
-        //     $('#howmuchmoney').val();
-        // }
-
-        // function userMoneyPeople() {
-        //     var userMoneyPeople = $('input:checkbox[name="boxs"]:checked').map(function () {
-        //         return $(this).val();
-        //     }).get().join(",");
-        //     console.log(userMoneyPeople);
-
-        // var selected = document.querySelectorAll('input[type=checkbox][name="boxs"]:checked');
-        // var userMoneyPeople = Array.from(selected).map(function (item) {
-        //     return item.value;
-        // });
-        // console.log(userMoneyPeople);
-        //  }
-
         function enterToken() {
             axios.post('testdb2.php', {
                     data: {
@@ -162,8 +117,6 @@
                         alert('重覆');
                         return;
                     }
-                    // console.log('2');
-                    // console.log(response.data);
                     createNamee = $('#ecToken').val();
                     alert('建立成功');
                     show($('#ecToken').val());
@@ -194,7 +147,6 @@
 
                     for (let i = 0, len = response.data.length; i < len; i++) {
                         number++;
-                    //    console.log(response.data[i]);
                         item.push(
                             `
                                         <tr> 
@@ -212,8 +164,6 @@
                     $('#number').html(`${response.data.length}位`);
                     $('#nameShow').html(item.join(''));
 
-                    /////////////////////////////////////////////////////////
-
                     for (let i = 0, len = response.data.length; i < len; i++) {
                         number++;
                         item2.push(
@@ -226,8 +176,6 @@
                         );
                     }
                     $('#payMainMoneyPeople2').html(item2.join(''));
-                    /////////////////////////////////////
-
 
                     for (let i = 0, len = response.data.length; i < len; i++) {
                         number++;
@@ -241,14 +189,12 @@
                         );
                     }
                     $('#userMoneyPeople2').html(item3.join(''));
-                    /////////////////////////////////////
                 })
                 .catch(function (error) {
                     console.log(error);
                 });
         }
 
-        //  let createName = () => { //請輸入以建立人物名稱
         function createName() {
             axios.post('testdb2.php', {
                     data: {
@@ -267,7 +213,6 @@
                     console.log(error);
                 });
         }
-
 
         function dataToDB(payMainMoneyPeople, userMoneyPeople, howmuchmoney) {
             axios.post('testdb2.php', {
@@ -295,7 +240,6 @@
                 });
         }
 
-
         function showWaterBill() {
             axios.post('testdb2.php', {
                     data: {
@@ -304,10 +248,8 @@
                     },
                 })
                 .then(function (response) {
-                    // console.log(response.data);
                     item = [];
                     for (let i = 0, len = response.data.length; i < len; i++) {
-                        // console.log(response.data[i]);
                         item.push(
                             `
                                     <tr>
@@ -316,18 +258,16 @@
                                         <td>${response.data[i].usemoneypeople}</td>
                                         <td>${response.data[i].howmuchmoney}</td>
                                     </tr>
-                                    `
+                            `
                         );
                     }
                     $('#showWaterBill > tbody').html(item.join(''));
-
                     showWaterBillAccount(response.data);
                 })
                 .catch(function (error) {
                     console.log(error);
                 });
         }
-
      
         function showWaterBillAccount(msg) {
             for (let i = 0, len = msg.length; i < len; i++) {
@@ -336,42 +276,22 @@
                 let usemoneypeople2 = msg[i].usemoneypeople.split(',');
                 let howmuchmoney2 = msg[i].howmuchmoney;
 
-
-                // console.log(`usemoneypeople2 的陣列 ${usemoneypeople2}`);
-                //  console.log(`usemoneypeople2 的陣列長度 ${usemoneypeople2.length}`);
-
-                //  console.log(`第${i}資料開始`);
                 for (let i = 0; i < families.length; i++) { //付錢人錢相加
                     families[i].money = families[i].money;
 
                     if (families[i].name == paymoneypeople2) {
-                        //   console.log(`付錢人出了${howmuchmoney2}`);
                         families[i].money = families[i].money + howmuchmoney2;
-
-                        //console.log(`付錢人名字${families[i].name},  `);
-                        //console.log(`付錢人目前的錢 ${families[i].money}`);
-
                     }
 
                     for (let pp = 0; pp < usemoneypeople2.length; pp++) {
-                        //付錢人錢相加 
-                        // console.log(`使用人陣列長度${usemoneypeople2.length}`);
-
                         if (families[i].name == usemoneypeople2[pp]) {
-                            //console.log(`使用人名字${families[i].name}`);
-                            // console.log(`未扣除時的錢${families[i].money}`);
                             families[i].money = families[i].money - (howmuchmoney2 / usemoneypeople2.length)
-                            // console.log(`扣除後的錢${families[i].money}`);
                         }
                     }
                 }
-
-                //console.log(`第${i}資料結束`);
-                //console.log(`--------`);
             }
 
            abc =families;
-            
            abc.forEach(element => {
            console.log(element);
            
@@ -380,11 +300,8 @@
             families.forEach(element => {
             element.money = element.money * -1;
          });
-         
-        //   console.log(wtf);  
 
-              sortByKey(families, 'money'); //json, 排序用的key
-            //  console.log(wtf);
+            sortByKey(families, 'money'); //json, 排序用的key
             wtfwhocare(families);
         }
 
@@ -395,7 +312,6 @@
                 return ((x < y) ? -1 : ((x > y) ? 1 : 0));
             });
         }
-
 
         function wtfwhocare(wtf) {
 
@@ -411,20 +327,17 @@
                     wtf[i].money = wtf[people].money + wtf[i].money;
 
                     $('#paypaypay').append(`${wtf[people].name} to ${wtf[i].name}          `);
-                  //  console.log(`${wtf[people].name} to ${wtf[i].name} `);
                     if (wtf[i].money != 0) {
                         i = i - 1;
                     }
 
                     if (z > 0) {
                         wtf[people].money = z;
-                    // console.log('step1');
                     $('#paypaypay').append(`<red> ${x*-1} </red>元<br>`);
                      
                         z = 0;
                     } else {
                         people = people - 1;
-                    //  console.log('step2');
                     $('#paypaypay').append(`${y} 元<br>`);
                     }
                 }

@@ -45,7 +45,6 @@ function createToken($token){
 
 function enterToken($token){
     global $classpdo;
-  //  $myquery = $classpdo->execute('SELECT count(*) FROM token Where token=?',[$token]);
     $myquery = $classpdo->execute('SELECT * FROM token Where token=?',[$token]);
     echo json_encode($myquery);
 }
@@ -54,19 +53,6 @@ function show($token){
     global $classpdo;
     $myquery = $classpdo->execute('SELECT mainpeople FROM mainpeople Where ID=?',[$token]);
     echo json_encode($myquery);
-}
-
-function axiosTest() {
-    // global $dbh;
-    // $sth = $dbh->prepare('SELECT * from travelmoney');
-
-    // $sth->execute();
-    // $count = $sth->rowCount();
-    // if ($count === 0) {
-        echo json_encode(['OK']);
-    // } else {
-    //     echo json_encode($sth->fetchAll(PDO::FETCH_ASSOC));
-    // }
 }
 
 function createName($mainpeople,$ID){   //請輸入以建立人物名稱
@@ -90,7 +76,6 @@ function dataToDB($payMainMoneyPeople,$userMoneyPeople,$howmuchmoney,$ID){
         echo json_encode(['NOOOOOOO']);
     }
 }
-
 
 function showWaterBill($token){
     global $classpdo;

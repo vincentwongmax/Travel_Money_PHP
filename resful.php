@@ -9,8 +9,6 @@ class DatabaseAccessObject {
     private $last_id = 0;
     private $last_num_rows = 0;
     private $error_message = "";
-   // public $fuck = 'mother';
-    //private $diu = 'mahai';
 
     /**
      * 這段是『建構式』會在物件被 new 時自動執行，裡面主要是建立跟資料庫的連接，並設定語系是萬國語言以支援中文
