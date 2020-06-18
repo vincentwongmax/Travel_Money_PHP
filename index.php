@@ -8,7 +8,7 @@
 </head>
 
 <body>
-    <H1>旅行用記帳平分器 測試版V.0.003</H1>
+    <H1>旅行用記帳平分器 測試版V.0.004</H1>
     <div id="payMainMoneyPeople">
         <h2>請輸入或建立</h2>
         <input id="ecToken" required="required" type="text" name="token" placeholder="請輸入或建立" />
@@ -40,7 +40,7 @@
     <br><br>
 
     <div id="userMoneyPeople">
-        <h1>付錢人(可多選)</h1>
+        <h1>受益人(可多選)</h1>
         <h3 id="userMoneyPeople2"></h3>
         </h1>
     </div>
@@ -63,11 +63,11 @@
         </tbody>
     </table>
     <br>
-    <h3 style="color:cadetblue"> 目前每個人的錢 </h3>
+   
     <h4 id="showPersonMoney"></h4>
     <br><br><br>
 
-    <h3 style="color:brown" > 請跟據指示進行付款 </h3>
+    
     <h4 id="paypaypay"></h4>
 
     </br>
@@ -85,6 +85,8 @@
             }).get().join(",");
             let howmuchmoney = $('#howmuchmoney').val();
             dataToDB(payMainMoneyPeople, userMoneyPeople, howmuchmoney);
+            show($('#ecToken').val());
+            $('#howmuchmoney').empty;
         }
         function enterToken() {
             axios.post('testdb2.php', {
@@ -94,6 +96,7 @@
                     },
                 })
                 .then(function (response) {
+                    
                     show($('#ecToken').val());
                     //   console.log(response.data[0]);
                     if (response.data[0] == undefined) {
@@ -117,8 +120,8 @@
                     },
                 })
                 .then(function (response) {
-                    if (response.responseText = 'NO') {
-                        console.log(response);
+                    if (response.request.response == 'NO') {
+                        console.log(response.request.response);
                         alert('重覆');
                         return;
                     }
@@ -145,7 +148,6 @@
                 })
                 .then(function (response) {
                     showWaterBill();
-                    // console.log(response.data);
                     item = [];
                     item2 = [];
                     item3 = [];
@@ -209,10 +211,11 @@
                     },
                 })
                 .then(function (response) {
+                    
                     createName2 = $('#createName').val();
                     $('#nameShow').append(`<tr><td>${createName2}</td></tr>`);
                     alert('DONE');
-                    $('#createName').val('');
+                    show($('#ecToken').val());
                 })
                 .catch(function (error) {
                     console.log(error);
@@ -296,6 +299,8 @@
             }
 
            abc =families;
+           $('#showPersonMoney').empty();
+           $('#showPersonMoney').append(`<h3 style="color:cadetblue"> 目前每個人的錢 </h3>`)
            families.forEach(element => {
            $('#showPersonMoney').append(`${element.name} =>  ${element.money} <br>`)
          });
@@ -305,6 +310,8 @@
          });
 
             sortByKey(families, 'money'); //json, 排序用的key
+            $('#paypaypay').empty();
+            $('#paypaypay').append(`<h3 style="color:brown" > 請跟據指示進行付款 </h3>`);
             wtfwhocare(families);
         }
 
@@ -332,7 +339,6 @@
                     if (wtf[i].money != 0) {
                         i = i - 1;
                     }
-
                     if (z > 0) {
                         wtf[people].money = z;
                         $('#paypaypay').append(`<p style="color:red" >${x*-1} 元<br></p>`);

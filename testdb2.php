@@ -37,9 +37,9 @@ function createToken($token){
     $myquery = $classpdo->execute('SELECT count(*) FROM token Where token=?',[$token]);
     if($myquery[0]['count(*)'] == '0'){
          $myquery2 = $classpdo->insert('token', ['token'=>$token]);
-         echo json_encode(['OK']);
+         echo json_encode(['OKKKKKKKKK']);
     }else {
-        echo json_encode(['NO']);
+        echo json_encode(['NOOOOOOOOO']);
     }
 }
 
