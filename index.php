@@ -124,7 +124,7 @@
             }).get().join(",");
             let howmuchmoney = $('#howmuchmoney').val();
 
-            if(payMainMoneyPeople == undefined || userMoneyPeople == undefined || howmuchmoney ==undefined){
+            if(payMainMoneyPeople == undefined || userMoneyPeople == undefined || howmuchmoney ==undefined || howmuchmoney == 0){
                 alert("輸入內容不允許為空")
             }else{
                 if(payMainMoneyPeople == '' || userMoneyPeople == '' || howmuchmoney == ''){
@@ -133,10 +133,10 @@
                     dataToDB(payMainMoneyPeople, userMoneyPeople, howmuchmoney);
                 }
             }
-
             show($('#ecToken').val());
             $('#howmuchmoney').val('');
         }
+
         function enterToken() {
             axios.post('testdb2.php', {
                     data: {
@@ -230,7 +230,7 @@
                                     <td>${response.data[i].mainpeople} ： <td>
                                     <td><input type="radio" name="box" value="${response.data[i].mainpeople}"/><td>
                                 </tr>
-                                `
+                            `
                         );
                     }
                     $('#payMainMoneyPeople2').html(item2.join(''));
@@ -385,18 +385,33 @@
                     y = wtf[people].money;
                     z = x + y;
                     wtf[i].money = wtf[people].money + wtf[i].money;
+                    
+                    if(z > 0) {
+                        if(x*-1 != 0){
+                            $('#paypaypay').append(`${wtf[people].name} ==>${wtf[i].name}`);
+                        }
+                        
+                    }else{
+                        if(y != 0){
+                            $('#paypaypay').append(`${wtf[people].name} ==>${wtf[i].name}`);
+                        }
+                    }
 
-                    $('#paypaypay').append(`${wtf[people].name} ==>${wtf[i].name}`);
                     if (wtf[i].money != 0) {
                         i = i - 1;
                     }
+
                     if (z > 0) {
                         wtf[people].money = z;
-                        $('#paypaypay').append(`<p style="color:red" >${x*-1} 元<br></p>`);
+                        if(x * -1 != 0){
+                            $('#paypaypay').append(`<p style="color:red" >${x*-1} 元<br></p>`);
+                        }
                         z = 0;
                     } else {
                         people = people - 1;
-                        $('#paypaypay').append(`<p style="color:red" >${y} 元<br></p>`);
+                        if(y != 0){
+                            $('#paypaypay').append(`<p style="color:red" >${y} 元<br></p>`);
+                        }
                     }
                 }
             }
