@@ -1,405 +1,444 @@
-<!DOCTYPE html>
-<html lang="en">
-
 <head>
-
-  <meta charset="utf-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-  <meta name="description" content="">
-  <meta name="author" content="">
-
-  <title>SB Admin 2 - Blank</title>
-
-  <!-- Custom fonts for this template-->
-  <link href="vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
-  <link href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i" rel="stylesheet">
-
-  <!-- Custom styles for this template-->
-  <link href="css/sb-admin-2.min.css" rel="stylesheet">
+    <meta charset="UTF-8">
+    <title>checkBox</title>
+    <!-- <script
+  src="https://code.jquery.com/jquery-3.5.1.min.js"
+  integrity="sha256-9/aliU8dGd2tb6OSsuzixeV4y/faTqgFtohetphbbj0="
+  crossorigin="anonymous"></script> -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css"
+        integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
 
 </head>
 
-<body id="page-top">
-
-
-  
-  <!-- Page Wrapper -->
-  <div id="wrapper">
-
-    <!-- Sidebar -->
-    <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
-
-      <!-- Sidebar - Brand -->
-      <a class="sidebar-brand d-flex align-items-center justify-content-center" href="index.html">
-        <div class="sidebar-brand-icon rotate-n-15">
-          <i class="fas fa-laugh-wink"></i>
-        </div>
-        <div class="sidebar-brand-text mx-3">SB Admin <sup>2</sup></div>
-      </a>
-
-      <!-- Divider -->
-      <hr class="sidebar-divider my-0">
-
-      <!-- Nav Item - Dashboard -->
-      <li class="nav-item">
-        <a class="nav-link" href="index.html">
-          <i class="fas fa-fw fa-tachometer-alt"></i>
-          <span>Dashboard</span></a>
-      </li>
-
-      <!-- Divider -->
-      <hr class="sidebar-divider">
-
-      <!-- Heading -->
-      <div class="sidebar-heading">
-        Interface
-      </div>
-
-      <!-- Nav Item - Pages Collapse Menu -->
-      <li class="nav-item">
-        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="true" aria-controls="collapseTwo">
-          <i class="fas fa-fw fa-cog"></i>
-          <span>Components</span>
-        </a>
-        <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
-          <div class="bg-white py-2 collapse-inner rounded">
-            <h6 class="collapse-header">Custom Components:</h6>
-            <a class="collapse-item" href="buttons.html">Buttons</a>
-            <a class="collapse-item" href="cards.html">Cards</a>
-          </div>
-        </div>
-      </li>
-
-      <!-- Nav Item - Utilities Collapse Menu -->
-      <li class="nav-item">
-        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseUtilities" aria-expanded="true" aria-controls="collapseUtilities">
-          <i class="fas fa-fw fa-wrench"></i>
-          <span>Utilities</span>
-        </a>
-        <div id="collapseUtilities" class="collapse" aria-labelledby="headingUtilities" data-parent="#accordionSidebar">
-          <div class="bg-white py-2 collapse-inner rounded">
-            <h6 class="collapse-header">Custom Utilities:</h6>
-            <a class="collapse-item" href="utilities-color.html">Colors</a>
-            <a class="collapse-item" href="utilities-border.html">Borders</a>
-            <a class="collapse-item" href="utilities-animation.html">Animations</a>
-            <a class="collapse-item" href="utilities-other.html">Other</a>
-          </div>
-        </div>
-      </li>
-
-      <!-- Divider -->
-      <hr class="sidebar-divider">
-
-      <!-- Heading -->
-      <div class="sidebar-heading">
-        Addons
-      </div>
-
-      <!-- Nav Item - Pages Collapse Menu -->
-      <li class="nav-item active">
-        <a class="nav-link" href="#" data-toggle="collapse" data-target="#collapsePages" aria-expanded="true" aria-controls="collapsePages">
-          <i class="fas fa-fw fa-folder"></i>
-          <span>Pages</span>
-        </a>
-        <div id="collapsePages" class="collapse show" aria-labelledby="headingPages" data-parent="#accordionSidebar">
-          <div class="bg-white py-2 collapse-inner rounded">
-            <h6 class="collapse-header">Login Screens:</h6>
-            <a class="collapse-item" href="login.html">Login</a>
-            <a class="collapse-item" href="register.html">Register</a>
-            <a class="collapse-item" href="forgot-password.html">Forgot Password</a>
-            <div class="collapse-divider"></div>
-            <h6 class="collapse-header">Other Pages:</h6>
-            <a class="collapse-item" href="404.html">404 Page</a>
-            <a class="collapse-item active" href="blank.html">Blank Page</a>
-          </div>
-        </div>
-      </li>
-
-      <!-- Nav Item - Charts -->
-      <li class="nav-item">
-        <a class="nav-link" href="charts.html">
-          <i class="fas fa-fw fa-chart-area"></i>
-          <span>Charts</span></a>
-      </li>
-
-      <!-- Nav Item - Tables -->
-      <li class="nav-item">
-        <a class="nav-link" href="tables.html">
-          <i class="fas fa-fw fa-table"></i>
-          <span>Tables</span></a>
-      </li>
-
-      <!-- Divider -->
-      <hr class="sidebar-divider d-none d-md-block">
-
-      <!-- Sidebar Toggler (Sidebar) -->
-      <div class="text-center d-none d-md-inline">
-        <button class="rounded-circle border-0" id="sidebarToggle"></button>
-      </div>
-
-    </ul>
-    <!-- End of Sidebar -->
-
-    <!-- Content Wrapper -->
-    <div id="content-wrapper" class="d-flex flex-column">
-
-      <!-- Main Content -->
-      <div id="content">
-
-        <!-- Topbar -->
-        <nav class="navbar navbar-expand navbar-light bg-white topbar mb-4 static-top shadow">
-
-          <!-- Sidebar Toggle (Topbar) -->
-          <button id="sidebarToggleTop" class="btn btn-link d-md-none rounded-circle mr-3">
-            <i class="fa fa-bars"></i>
-          </button>
-
-          <!-- Topbar Search -->
-          <form class="d-none d-sm-inline-block form-inline mr-auto ml-md-3 my-2 my-md-0 mw-100 navbar-search">
-            <div class="input-group">
-              <input type="text" class="form-control bg-light border-0 small" placeholder="Search for..." aria-label="Search" aria-describedby="basic-addon2">
-              <div class="input-group-append">
-                <button class="btn btn-primary" type="button">
-                  <i class="fas fa-search fa-sm"></i>
-                </button>
-              </div>
-            </div>
-          </form>
-
-          <!-- Topbar Navbar -->
-          <ul class="navbar-nav ml-auto">
-
-            <!-- Nav Item - Search Dropdown (Visible Only XS) -->
-            <li class="nav-item dropdown no-arrow d-sm-none">
-              <a class="nav-link dropdown-toggle" href="#" id="searchDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                <i class="fas fa-search fa-fw"></i>
-              </a>
-              <!-- Dropdown - Messages -->
-              <div class="dropdown-menu dropdown-menu-right p-3 shadow animated--grow-in" aria-labelledby="searchDropdown">
-                <form class="form-inline mr-auto w-100 navbar-search">
-                  <div class="input-group">
-                    <input type="text" class="form-control bg-light border-0 small" placeholder="Search for..." aria-label="Search" aria-describedby="basic-addon2">
-                    <div class="input-group-append">
-                      <button class="btn btn-primary" type="button">
-                        <i class="fas fa-search fa-sm"></i>
-                      </button>
-                    </div>
-                  </div>
-                </form>
-              </div>
-            </li>
-
-            <!-- Nav Item - Alerts -->
-            <li class="nav-item dropdown no-arrow mx-1">
-              <a class="nav-link dropdown-toggle" href="#" id="alertsDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                <i class="fas fa-bell fa-fw"></i>
-                <!-- Counter - Alerts -->
-                <span class="badge badge-danger badge-counter">3+</span>
-              </a>
-              <!-- Dropdown - Alerts -->
-              <div class="dropdown-list dropdown-menu dropdown-menu-right shadow animated--grow-in" aria-labelledby="alertsDropdown">
-                <h6 class="dropdown-header">
-                  Alerts Center
-                </h6>
-                <a class="dropdown-item d-flex align-items-center" href="#">
-                  <div class="mr-3">
-                    <div class="icon-circle bg-primary">
-                      <i class="fas fa-file-alt text-white"></i>
-                    </div>
-                  </div>
-                  <div>
-                    <div class="small text-gray-500">December 12, 2019</div>
-                    <span class="font-weight-bold">A new monthly report is ready to download!</span>
-                  </div>
-                </a>
-                <a class="dropdown-item d-flex align-items-center" href="#">
-                  <div class="mr-3">
-                    <div class="icon-circle bg-success">
-                      <i class="fas fa-donate text-white"></i>
-                    </div>
-                  </div>
-                  <div>
-                    <div class="small text-gray-500">December 7, 2019</div>
-                    $290.29 has been deposited into your account!
-                  </div>
-                </a>
-                <a class="dropdown-item d-flex align-items-center" href="#">
-                  <div class="mr-3">
-                    <div class="icon-circle bg-warning">
-                      <i class="fas fa-exclamation-triangle text-white"></i>
-                    </div>
-                  </div>
-                  <div>
-                    <div class="small text-gray-500">December 2, 2019</div>
-                    Spending Alert: We've noticed unusually high spending for your account.
-                  </div>
-                </a>
-                <a class="dropdown-item text-center small text-gray-500" href="#">Show All Alerts</a>
-              </div>
-            </li>
-
-            <!-- Nav Item - Messages -->
-            <li class="nav-item dropdown no-arrow mx-1">
-              <a class="nav-link dropdown-toggle" href="#" id="messagesDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                <i class="fas fa-envelope fa-fw"></i>
-                <!-- Counter - Messages -->
-                <span class="badge badge-danger badge-counter">7</span>
-              </a>
-              <!-- Dropdown - Messages -->
-              <div class="dropdown-list dropdown-menu dropdown-menu-right shadow animated--grow-in" aria-labelledby="messagesDropdown">
-                <h6 class="dropdown-header">
-                  Message Center
-                </h6>
-                <a class="dropdown-item d-flex align-items-center" href="#">
-                  <div class="dropdown-list-image mr-3">
-                    <img class="rounded-circle" src="https://source.unsplash.com/fn_BT9fwg_E/60x60" alt="">
-                    <div class="status-indicator bg-success"></div>
-                  </div>
-                  <div class="font-weight-bold">
-                    <div class="text-truncate">Hi there! I am wondering if you can help me with a problem I've been having.</div>
-                    <div class="small text-gray-500">Emily Fowler · 58m</div>
-                  </div>
-                </a>
-                <a class="dropdown-item d-flex align-items-center" href="#">
-                  <div class="dropdown-list-image mr-3">
-                    <img class="rounded-circle" src="https://source.unsplash.com/AU4VPcFN4LE/60x60" alt="">
-                    <div class="status-indicator"></div>
-                  </div>
-                  <div>
-                    <div class="text-truncate">I have the photos that you ordered last month, how would you like them sent to you?</div>
-                    <div class="small text-gray-500">Jae Chun · 1d</div>
-                  </div>
-                </a>
-                <a class="dropdown-item d-flex align-items-center" href="#">
-                  <div class="dropdown-list-image mr-3">
-                    <img class="rounded-circle" src="https://source.unsplash.com/CS2uCrpNzJY/60x60" alt="">
-                    <div class="status-indicator bg-warning"></div>
-                  </div>
-                  <div>
-                    <div class="text-truncate">Last month's report looks great, I am very happy with the progress so far, keep up the good work!</div>
-                    <div class="small text-gray-500">Morgan Alvarez · 2d</div>
-                  </div>
-                </a>
-                <a class="dropdown-item d-flex align-items-center" href="#">
-                  <div class="dropdown-list-image mr-3">
-                    <img class="rounded-circle" src="https://source.unsplash.com/Mv9hjnEUHR4/60x60" alt="">
-                    <div class="status-indicator bg-success"></div>
-                  </div>
-                  <div>
-                    <div class="text-truncate">Am I a good boy? The reason I ask is because someone told me that people say this to all dogs, even if they aren't good...</div>
-                    <div class="small text-gray-500">Chicken the Dog · 2w</div>
-                  </div>
-                </a>
-                <a class="dropdown-item text-center small text-gray-500" href="#">Read More Messages</a>
-              </div>
-            </li>
-
-            <div class="topbar-divider d-none d-sm-block"></div>
-
-            <!-- Nav Item - User Information -->
-            <li class="nav-item dropdown no-arrow">
-              <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                <span class="mr-2 d-none d-lg-inline text-gray-600 small">Valerie Luna</span>
-                <img class="img-profile rounded-circle" src="https://source.unsplash.com/QAB-WJcbgJk/60x60">
-              </a>
-              <!-- Dropdown - User Information -->
-              <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in" aria-labelledby="userDropdown">
-                <a class="dropdown-item" href="#">
-                  <i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>
-                  Profile
-                </a>
-                <a class="dropdown-item" href="#">
-                  <i class="fas fa-cogs fa-sm fa-fw mr-2 text-gray-400"></i>
-                  Settings
-                </a>
-                <a class="dropdown-item" href="#">
-                  <i class="fas fa-list fa-sm fa-fw mr-2 text-gray-400"></i>
-                  Activity Log
-                </a>
-                <div class="dropdown-divider"></div>
-                <a class="dropdown-item" href="#" data-toggle="modal" data-target="#logoutModal">
-                  <i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>
-                  Logout
-                </a>
-              </div>
-            </li>
-
-          </ul>
-
-        </nav>
-        <!-- End of Topbar -->
-
-        <!-- Begin Page Content -->
-        <div class="container-fluid">
-
-          <!-- Page Heading -->
-          <h1 class="h3 mb-4 text-gray-800">Blank Page</h1>
-
-        <h1>你好</h1>
-          好好呀
-          
-          <?php include "aaa.php";?>  
-          <script type="text/javascript" src="aaa.php"></script>
-
-
-
-        </div>
-        <!-- /.container-fluid -->
-
-      </div>
-      <!-- End of Main Content -->
-
-      <!-- Footer -->
-      <footer class="sticky-footer bg-white">
-        <div class="container my-auto">
-          <div class="copyright text-center my-auto">
-            <span>Copyright &copy; Your Website 2019</span>
-          </div>
-        </div>
-      </footer>
-      <!-- End of Footer -->
-
+<body>
+    <H1>旅行用記帳平分器 測試版V.0.001</H1>
+    <div id="payMainMoneyPeople">
+        <h2>請輸入或建立</h2>
+        <input id="ecToken" required="required" type="text" name="token" placeholder="請輸入或建立" />
+        <button type="button" class="btn btn-outline-info" onclick="enterToken();">輸入</button>
+        <button type="button" class="btn btn-outline-info" onclick="createToken()">建立</button>
     </div>
-    <!-- End of Content Wrapper -->
+    <br><br><br><br>
 
-  </div>
-  <!-- End of Page Wrapper -->
+    <h2>請輸入以建立人物名稱</h2>
+    <input id="createName" type="text" name="token" placeholder="請輸入或建立" />
+    <button type="button" class="btn btn-outline-info" onclick="createName()">輸入</button>
+    <br><br><br><br>
 
-  <!-- Scroll to Top Button-->
-  <a class="scroll-to-top rounded" href="#page-top">
-    <i class="fas fa-angle-up"></i>
-  </a>
+    <h1> 目前人物成員有:
+        <a id="number"> </a>
+        <h2 id="nameShow"></h2>
+    </h1>
 
-  <!-- Logout Modal-->
-  <div class="modal fade" id="logoutModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-    <div class="modal-dialog" role="document">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h5 class="modal-title" id="exampleModalLabel">Ready to Leave?</h5>
-          <button class="close" type="button" data-dismiss="modal" aria-label="Close">
-            <span aria-hidden="true">×</span>
-          </button>
-        </div>
-        <div class="modal-body">Select "Logout" below if you are ready to end your current session.</div>
-        <div class="modal-footer">
-          <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
-          <a class="btn btn-primary" href="login.html">Logout</a>
-        </div>
-      </div>
+    <br><br>
+
+    <div id="payMainMoneyPeople">
+        <h1>付錢人(單選)</h1>
+        <h3 id="payMainMoneyPeople2"></h3>
+        </h1>
+        <!-- 黃： <input type="checkbox" name="box" value="黃" /><br>
+                文： <input type="checkbox" name="box" value="文" /><br>
+                建： <input type="checkbox" name="box" value="建" /><br>
+                件： <input type="checkbox" name="box" value="件" /><br>
+                WIN神： <input type="checkbox" name="box" value="WIN神" /><br><br /> -->
     </div>
-  </div>
+    <br><br>
+    <h2>請輸入付款多少錢</h2>
+    <input id="howmuchmoney" required="required" type="text" placeholder="請輸入付款多少錢"> </input>
+    <br><br>
 
-  <!-- Bootstrap core JavaScript-->
-  <script src="vendor/jquery/jquery.min.js"></script>
-  <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+    <div id="userMoneyPeople">
+        <h1>付錢人(可多選)</h1>
+        <h3 id="userMoneyPeople2"></h3>
+        </h1>
+        <!-- 黃： <input type="checkbox" name="boxs" value="黃" /><br>
+                文： <input type="checkbox" name="boxs" value="文" /><br>
+                建： <input type="checkbox" name="boxs" value="建" /><br>
+                件： <input type="checkbox" name="boxs" value="件" /><br>
+                WIN神： <input type="checkbox" name="boxs" value="WIN神" /><br /><br> -->
+    </div>
 
-  <!-- Core plugin JavaScript-->
-  <script src="vendor/jquery-easing/jquery.easing.min.js"></script>
+    <input type="button" class="btn btn-outline-info" value="提交" onclick="getAll()"><br />
 
-  <!-- Custom scripts for all pages-->
-  <script src="js/sb-admin-2.min.js"></script>
 
+    <br><br><br>
+
+    <table id="showWaterBill" class="table table-hover">
+        <thead>
+            <tr>
+                <th scope="col">ID</th>
+                <th scope="col">paymoneypeople</th>
+                <th scope="col">usermoneypeople</th>
+                <th scope="col">howmuchmoney</th>
+            </tr>
+        </thead>
+        <tbody>
+        </tbody>
+    </table>
+
+    <h3 id="paypaypay"></h3>
+
+    <script>
+        var userMoneyPeople;
+        var payMainMoneyPeople;
+        var createNamee;
+
+
+        function getAll() {
+            // payMainMoneyPeople();
+            // userMoneyPeople()
+            let payMainMoneyPeople = $('input:radio[name="box"]:checked').map(function () {
+                return $(this).val();
+            }).get().join(",");
+            //  console.log(payMainMoneyPeople);
+
+            let userMoneyPeople = $('input:checkbox[name="boxs"]:checked').map(function () {
+                return $(this).val();
+            }).get().join(",");
+            //  console.log(userMoneyPeople);
+
+            let howmuchmoney = $('#howmuchmoney').val();
+            //   console.log(howmuchmoney);
+            // $('#showWaterBill > tbody').html('');
+            // showWaterBill();
+            dataToDB(payMainMoneyPeople, userMoneyPeople, howmuchmoney);
+        }
+
+        // function payMainMoneyPeople() {
+        //     var payMainMoneyPeople = $('input:checkbox[name="box"]:checked').map(function () {
+        //         return $(this).val();
+        //     }).get().join(",");
+        //     console.log(payMainMoneyPeople);
+        //     $('#howmuchmoney').val();
+        // }
+
+        // function userMoneyPeople() {
+        //     var userMoneyPeople = $('input:checkbox[name="boxs"]:checked').map(function () {
+        //         return $(this).val();
+        //     }).get().join(",");
+        //     console.log(userMoneyPeople);
+
+        // var selected = document.querySelectorAll('input[type=checkbox][name="boxs"]:checked');
+        // var userMoneyPeople = Array.from(selected).map(function (item) {
+        //     return item.value;
+        // });
+        // console.log(userMoneyPeople);
+        //  }
+
+        function enterToken() {
+            axios.post('testdb2.php', {
+                    data: {
+                        action: 'enterToken',
+                        ecToken: $('#ecToken').val(),
+                    },
+                })
+                .then(function (response) {
+                    show($('#ecToken').val());
+                    //   console.log(response.data[0]);
+                    if (response.data[0] == undefined) {
+                        if (confirm('沒有DATA, 建立新的TOEKN?')) {
+                            createToken()
+                        }
+                    } else {
+                        createNamee = $('#ecToken').val();
+                    }
+                })
+                .catch(function (error) {
+                    console.log(error);
+                });
+        }
+
+        function createToken() {
+            axios.post('testdb2.php', {
+                    data: {
+                        action: 'createToken',
+                        ecToken: $('#ecToken').val(),
+                    },
+                })
+                .then(function (response) {
+                    if (response.responseText = 'NO') {
+                        console.log(response);
+                        alert('重覆');
+                        return;
+                    }
+                    // console.log('2');
+                    // console.log(response.data);
+                    createNamee = $('#ecToken').val();
+                    alert('建立成功');
+                    show($('#ecToken').val());
+                })
+                .catch(function (error) {
+                    console.log(error);
+                });
+        }
+
+        var families = [{
+            'name': '',
+            'money': 0,
+        }, ];
+
+        let show = (token) => {
+            axios.post('testdb2.php', {
+                    data: {
+                        action: 'member',
+                        ecToken: token,
+                    },
+                })
+                .then(function (response) {
+                    showWaterBill();
+                    // console.log(response.data);
+                    item = [];
+                    item2 = [];
+                    item3 = [];
+
+                    for (let i = 0, len = response.data.length; i < len; i++) {
+                        number++;
+                    //    console.log(response.data[i]);
+                        item.push(
+                            `
+                                        <tr> 
+                                            <td>${i+1}. </td>
+                                            <td>${response.data[i].mainpeople}</td>
+                                        </tr>
+                                    `
+                        );
+                        if (families[i] == undefined) {
+                            families[i] = [];
+                        }
+                        families[i].name = response.data[i].mainpeople;
+                        families[i].money = 0;
+                    }
+                    $('#number').html(`${response.data.length}位`);
+                    $('#nameShow').html(item.join(''));
+
+                    /////////////////////////////////////////////////////////
+
+                    for (let i = 0, len = response.data.length; i < len; i++) {
+                        number++;
+                        item2.push(
+                            `
+                                <tr>
+                                    <td>${response.data[i].mainpeople} ： <td>
+                                    <td><input type="radio" name="box" value="${response.data[i].mainpeople}"/><td>
+                                </tr>
+                                `
+                        );
+                    }
+                    $('#payMainMoneyPeople2').html(item2.join(''));
+                    /////////////////////////////////////
+
+
+                    for (let i = 0, len = response.data.length; i < len; i++) {
+                        number++;
+                        item3.push(
+                            `
+                                <tr>
+                                    <td>${response.data[i].mainpeople} ： <td>
+                                    <td><input type="checkbox" name="boxs" value="${response.data[i].mainpeople}"/><td>
+                                </tr>
+                                `
+                        );
+                    }
+                    $('#userMoneyPeople2').html(item3.join(''));
+                    /////////////////////////////////////
+                })
+                .catch(function (error) {
+                    console.log(error);
+                });
+        }
+
+        //  let createName = () => { //請輸入以建立人物名稱
+        function createName() {
+            axios.post('testdb2.php', {
+                    data: {
+                        action: 'createName',
+                        mainpeople: $('#createName').val(),
+                        token: createNamee,
+                    },
+                })
+                .then(function (response) {
+                    createName2 = $('#createName').val();
+                    $('#nameShow').append(`<tr><td>${createName2}</td></tr>`);
+                    alert('DONE');
+                    $('#createName').val('');
+                })
+                .catch(function (error) {
+                    console.log(error);
+                });
+        }
+
+
+        function dataToDB(payMainMoneyPeople, userMoneyPeople, howmuchmoney) {
+            axios.post('testdb2.php', {
+                    data: {
+                        action: 'dataToDB',
+                        payMainMoneyPeople: payMainMoneyPeople,
+                        userMoneyPeople: userMoneyPeople,
+                        howmuchmoney: howmuchmoney,
+                        token: createNamee,
+                    },
+                })
+                .then(function (response) {
+                    console.log('dataToDB test');
+                    console.log(response.request.responseText);
+                    if (response.request.responseText == 'NOOOOOOO') {
+                        console.log(response);
+                        alert('有錯哦');
+                        return;
+                    }
+
+                    alert('DONE');
+                })
+                .catch(function (error) {
+                    console.log(error);
+                });
+        }
+
+
+        function showWaterBill() {
+            axios.post('testdb2.php', {
+                    data: {
+                        action: 'showWaterBill',
+                        ecToken: $('#ecToken').val(),
+                    },
+                })
+                .then(function (response) {
+                    // console.log(response.data);
+                    item = [];
+                    for (let i = 0, len = response.data.length; i < len; i++) {
+                        // console.log(response.data[i]);
+                        item.push(
+                            `
+                                    <tr>
+                                        <th scope="row">${i}</th>
+                                        <td>${response.data[i].paymoneypeople}</td>
+                                        <td>${response.data[i].usemoneypeople}</td>
+                                        <td>${response.data[i].howmuchmoney}</td>
+                                    </tr>
+                                    `
+                        );
+                    }
+                    $('#showWaterBill > tbody').html(item.join(''));
+
+                    showWaterBillAccount(response.data);
+                })
+                .catch(function (error) {
+                    console.log(error);
+                });
+        }
+
+     
+        function showWaterBillAccount(msg) {
+            for (let i = 0, len = msg.length; i < len; i++) {
+
+                let paymoneypeople2 = msg[i].paymoneypeople;
+                let usemoneypeople2 = msg[i].usemoneypeople.split(',');
+                let howmuchmoney2 = msg[i].howmuchmoney;
+
+
+                // console.log(`usemoneypeople2 的陣列 ${usemoneypeople2}`);
+                //  console.log(`usemoneypeople2 的陣列長度 ${usemoneypeople2.length}`);
+
+                //  console.log(`第${i}資料開始`);
+                for (let i = 0; i < families.length; i++) { //付錢人錢相加
+                    families[i].money = families[i].money;
+
+                    if (families[i].name == paymoneypeople2) {
+                        //   console.log(`付錢人出了${howmuchmoney2}`);
+                        families[i].money = families[i].money + howmuchmoney2;
+
+                        //console.log(`付錢人名字${families[i].name},  `);
+                        //console.log(`付錢人目前的錢 ${families[i].money}`);
+
+                    }
+
+                    for (let pp = 0; pp < usemoneypeople2.length; pp++) {
+                        //付錢人錢相加 
+                        // console.log(`使用人陣列長度${usemoneypeople2.length}`);
+
+                        if (families[i].name == usemoneypeople2[pp]) {
+                            //console.log(`使用人名字${families[i].name}`);
+                            // console.log(`未扣除時的錢${families[i].money}`);
+                            families[i].money = families[i].money - (howmuchmoney2 / usemoneypeople2.length)
+                            // console.log(`扣除後的錢${families[i].money}`);
+                        }
+                    }
+                }
+
+                //console.log(`第${i}資料結束`);
+                //console.log(`--------`);
+            }
+
+           abc =families;
+            
+           abc.forEach(element => {
+           console.log(element);
+           
+         });
+
+            families.forEach(element => {
+            element.money = element.money * -1;
+         });
+         
+        //   console.log(wtf);  
+
+              sortByKey(families, 'money'); //json, 排序用的key
+            //  console.log(wtf);
+            wtfwhocare(families);
+        }
+
+        function sortByKey(array, key) { //排序JSON 
+            return array.sort(function (a, b) {
+                var x = a[key];
+                var y = b[key];
+                return ((x < y) ? -1 : ((x > y) ? 1 : 0));
+            });
+        }
+
+
+        function wtfwhocare(wtf) {
+
+        let people=wtf.length-1;
+
+            for (let i = 0; i <= people; i++) //print 人數 
+            {   
+                if (wtf[people].money > wtf[i].money) {
+                    let  x, y, z;
+                    x = wtf[i].money;
+                    y = wtf[people].money;
+                    z = x + y;
+                    wtf[i].money = wtf[people].money + wtf[i].money;
+
+                    $('#paypaypay').append(`${wtf[people].name} to ${wtf[i].name}          `);
+                  //  console.log(`${wtf[people].name} to ${wtf[i].name} `);
+                    if (wtf[i].money != 0) {
+                        i = i - 1;
+                    }
+
+                    if (z > 0) {
+                        wtf[people].money = z;
+                    // console.log('step1');
+                    $('#paypaypay').append(`<red> ${x*-1} </red>元<br>`);
+                     
+                        z = 0;
+                    } else {
+                        people = people - 1;
+                    //  console.log('step2');
+                    $('#paypaypay').append(`${y} 元<br>`);
+                    }
+                }
+            }
+        }
+    </script>
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
+        integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous">
+    </script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
+        integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous">
+    </script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"
+        integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI" crossorigin="anonymous">
+    </script>
 </body>
-
-</html>
+ 

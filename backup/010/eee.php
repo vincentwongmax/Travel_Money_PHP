@@ -76,6 +76,9 @@
         <tbody>
         </tbody>
     </table>
+
+    <h3 id="paypaypay"></h3>
+
     <script>
         var userMoneyPeople;
         var payMainMoneyPeople;
@@ -406,7 +409,9 @@
                     y = wtf[people].money;
                     z = x + y;
                     wtf[i].money = wtf[people].money + wtf[i].money;
-                    console.log(`${wtf[people].name} to ${wtf[i].name} `);
+
+                    $('#paypaypay').append(`${wtf[people].name} to ${wtf[i].name}          `);
+                  //  console.log(`${wtf[people].name} to ${wtf[i].name} `);
                     if (wtf[i].money != 0) {
                         i = i - 1;
                     }
@@ -414,12 +419,13 @@
                     if (z > 0) {
                         wtf[people].money = z;
                     // console.log('step1');
-                        console.log(`${x*-1} 元`);
+                    $('#paypaypay').append(`<red> ${x*-1} </red>元<br>`);
+                     
                         z = 0;
                     } else {
                         people = people - 1;
                     //  console.log('step2');
-                        console.log(`${y} 元`);
+                    $('#paypaypay').append(`${y} 元<br>`);
                     }
                 }
             }
