@@ -1,5 +1,5 @@
 # TravelMoney
-測試版公測 v0.0002
+測試版公測 v0.0003
 
 ## http://mankinwong.xyz
 
