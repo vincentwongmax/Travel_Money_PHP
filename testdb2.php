@@ -22,7 +22,7 @@ switch ($b) {
         createName($c["mainpeople"],$c["token"]);
         break;
     case "dataToDB":
-        dataToDB($c["payMainMoneyPeople"],$c["userMoneyPeople"],$c["howmuchmoney"],$c["token"]);
+        dataToDB($c["payMainMoneyPeople"],$c["userMoneyPeople"],$c["howmuchmoney"],$c["token"],$c["payMoneyNotes"]);
         break;
     case "showWaterBill":
         showWaterBill($c["ecToken"]);
@@ -66,11 +66,11 @@ function createName($mainpeople,$ID){   //請輸入以建立人物名稱
     }
 }
 
-function dataToDB($payMainMoneyPeople,$userMoneyPeople,$howmuchmoney,$ID){
+function dataToDB($payMainMoneyPeople,$userMoneyPeople,$howmuchmoney,$ID, $notes){
     global $classpdo;
     $myquery = $classpdo->execute('SELECT count(*) FROM payrecord Where ID=? and paymoneypeople =? and usemoneypeople =? and howmuchmoney =?',[$ID,$payMainMoneyPeople,$userMoneyPeople,$howmuchmoney]);
     if($myquery[0]['count(*)'] == '0'){
-         $myquery2 = $classpdo->insert('payrecord', ['ID'=>$ID,'paymoneypeople'=>$payMainMoneyPeople,'usemoneypeople'=>$userMoneyPeople,'howmuchmoney'=>$howmuchmoney]);
+         $myquery2 = $classpdo->insert('payrecord', ['ID'=>$ID,'paymoneypeople'=>$payMainMoneyPeople,'usemoneypeople'=>$userMoneyPeople,'howmuchmoney'=>$howmuchmoney,'notes'=>$notes]);
          echo json_encode(['OKKKKKKKK']);
     }else {
         echo json_encode(['NOOOOOOO']);
@@ -79,7 +79,7 @@ function dataToDB($payMainMoneyPeople,$userMoneyPeople,$howmuchmoney,$ID){
 
 function showWaterBill($token){
     global $classpdo;
-    $myquery = $classpdo->execute('SELECT * FROM payrecord Where ID=?',[$token]);
+    $myquery = $classpdo->execute('SELECT * FROM payrecord Where ID=? order by adddatatime DESC',[$token]);
     echo json_encode($myquery);
 }
 

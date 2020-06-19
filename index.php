@@ -34,7 +34,7 @@
     </div> -->
 
 
-    <H1>旅行用記帳平分器 測試版V.0.009</H1>
+    <H1>旅行用記帳平分器 測試版V.0.018</H1>
 
 
 
@@ -49,6 +49,7 @@
         
         <h2><mark>2.目前人物成員有:
             <a id="number"> </a><mark>
+
             <button type="button" class="btn btn-outline-info" onclick="openNameShow()">打開</button>
             <button class="btn btn-outline-primary" type="button" data-toggle="collapse" data-target="#collapseExample"
                 aria-expanded="false" aria-controls="collapseExample">
@@ -82,7 +83,10 @@
         <br><br>
         <h2>請輸入付款多少錢</h2>
         <input id="howmuchmoney" required="required" type="text" placeholder="請輸入付款多少錢"> </input>
-        <br><br>
+        <br>
+        <h2>請輸入備注</h2>
+        <input id="payMoneyNotes" type="text" placeholder="請輸入備注"> </input>
+        <br><br>    
 
         <div id="userMoneyPeople">
             <h1>受益人(可多選)</h1>
@@ -110,9 +114,11 @@
             <thead>
                 <tr>
                     <th scope="col">ID</th>
-                    <th scope="col">paymoneypeople</th>
-                    <th scope="col">usermoneypeople</th>
-                    <th scope="col">howmuchmoney</th>
+                    <th scope="col">付款人</th>
+                    <th scope="col">受益人</th>
+                    <th scope="col">錢</th>
+                    <th scope="col">備注</th>
+                    <th scope="col">上傳時間</th>
                 </tr>
             </thead>
             <tbody>
@@ -184,6 +190,7 @@
                 return $(this).val();
             }).get().join(",");
             let howmuchmoney = $('#howmuchmoney').val();
+            let payMoneyNotes = $('#payMoneyNotes').val();
 
             if (payMainMoneyPeople == undefined || userMoneyPeople == undefined || howmuchmoney == undefined ||
                 howmuchmoney == 0) {
@@ -192,7 +199,7 @@
                 if (payMainMoneyPeople == '' || userMoneyPeople == '' || howmuchmoney == '') {
                     alert("輸入內容不允許為空")
                 } else {
-                    dataToDB(payMainMoneyPeople, userMoneyPeople, howmuchmoney);
+                    dataToDB(payMainMoneyPeople, userMoneyPeople, howmuchmoney , payMoneyNotes);
                 }
             }
             show($('#ecToken').val());
@@ -382,13 +389,14 @@
                 });
         }
 
-        function dataToDB(payMainMoneyPeople, userMoneyPeople, howmuchmoney) {
+        function dataToDB(payMainMoneyPeople, userMoneyPeople, howmuchmoney,payMoneyNotes) {
             axios.post('testdb2.php', {
                     data: {
                         action: 'dataToDB',
                         payMainMoneyPeople: payMainMoneyPeople,
                         userMoneyPeople: userMoneyPeople,
                         howmuchmoney: howmuchmoney,
+                        payMoneyNotes : payMoneyNotes,
                         token: createNamee,
                     },
                 })
@@ -420,10 +428,12 @@
                         item.push(
                             `
                                     <tr>
-                                        <th scope="row">${i}</th>
+                                        <th scope="row">${response.data.length - i}</th>
                                         <td>${response.data[i].paymoneypeople}</td>
                                         <td>${response.data[i].usemoneypeople}</td>
                                         <td>${response.data[i].howmuchmoney}</td>
+                                        <td>${response.data[i].notes}</td>
+                                        <td>${response.data[i].adddatatime}</td>
                                     </tr>
                             `
                         );
