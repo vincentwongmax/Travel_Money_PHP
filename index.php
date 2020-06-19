@@ -5,6 +5,25 @@
         integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
     <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
 
+    <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="description" content="">
+  <meta name="author" content="">
+  <!-- <link rel="manifest" href="./manifest.webmanifest"> -->
+  
+
+
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-title" content="WIN神App">
+  <link rel="apple-touch-startup-image" href="./abc.png">
+  <link rel="apple-touch-icon" href="./abc.png">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+
+  <link rel="icon" href="./abc.png">
+  <meta name="mobile-web-app-capable" content="yes">
+
+
 </head>
 
 <body>
@@ -36,22 +55,21 @@
 
     <H1>旅行用記帳平分器 測試版V.0.018</H1>
 
-
+   
+    
 
     <div id="payMainMoneyPeople" >
-        <h2><mark>1. 請輸入或建立行程代號<mark></h2>
+        <h2 id="tokenIsWhat"><mark>1. 請輸入或建立行程代號 <mark></h2>
         <input id="ecToken" required="required" type="text" name="token" placeholder="可數英中台語廣東語馬來文" />
         <button type="button" class="btn btn-outline-info" onclick="enterToken();">輸入</button>
         <button type="button" class="btn btn-outline-info" onclick="createToken()">建立</button>
     </div>
     <br>
     <div class="start" id="start" style="display:none;">
-        
-        <h2><mark>2.目前人物成員有:
+        <h2><mark>2.人物成員有:
             <a id="number"> </a><mark>
-
-            <button type="button" class="btn btn-outline-info" onclick="openNameShow()">打開</button>
-            <button class="btn btn-outline-primary" type="button" data-toggle="collapse" data-target="#collapseExample"
+            <button type="button" class="btn btn-outline-success" onclick="openNameShow()">打開</button>
+            <button class="btn btn-outline-success" type="button" data-toggle="collapse" data-target="#collapseExample"
                 aria-expanded="false" aria-controls="collapseExample">
                 新增入物
             </button>
@@ -66,14 +84,14 @@
         </div>
     <br>
         <h2><mark>3.記帳
-        <button class="btn btn-outline-primary" type="button" data-toggle="collapse" data-target="#recordItNow"
+        <button class="btn btn-outline-danger" type="button" data-toggle="collapse" data-target="#recordItNow"
                 aria-expanded="false" aria-controls="recordItNow">
                 打開
         </button></mark></h2>
 
 
 
-        <div id="recordItNow" class="collapse"  >
+        <div id="recordItNow" class="collapse">
         <div id="payMainMoneyPeople">
             <h1>付錢人(單選)</h1>
             <h3 id="payMainMoneyPeople2"></h3>
@@ -82,11 +100,11 @@
 
         <br><br>
         <h2>請輸入付款多少錢</h2>
-        <input id="howmuchmoney" required="required" type="text" placeholder="請輸入付款多少錢"> </input>
+        <input id="howmuchmoney" required="required" type="number" placeholder="請輸入付款多少錢"> </input>
         <br>
         <h2>請輸入備注</h2>
         <input id="payMoneyNotes" type="text" placeholder="請輸入備注"> </input>
-        <br><br>    
+        <br><br>
 
         <div id="userMoneyPeople">
             <h1>受益人(可多選)</h1>
@@ -103,7 +121,7 @@
         </div>
         <br>
         <h2><mark>4.顯示明細
-        <button class="btn btn-outline-primary" type="button" data-toggle="collapse" data-target="#showbill"
+        <button class="btn btn-outline-warning" type="button" data-toggle="collapse" data-target="#showbill"
                 aria-expanded="false" aria-controls="showbill">
                 打開
         </button></mark></h2>
@@ -173,7 +191,6 @@
         //     enterToken();
         // }
 
-
         var userMoneyPeople;
         var payMainMoneyPeople;
         var createNamee;
@@ -204,6 +221,8 @@
             }
             show($('#ecToken').val());
             $('#howmuchmoney').val('');
+            $('#payMoneyNotes').val('')
+            
         }
 
         function enterToken() {
@@ -214,18 +233,27 @@
                     },
                 })
                 .then(function (response) {
-                    $('.start').show();
+                    if(families != undefined || families!= ''){
+                        families= [];
+                    }
+
                     show($('#ecToken').val());
                     if ($('#ecToken').val() == null || $('#ecToken').val() == '') {
                         alert('請輸入TOKEN');
+                        return;
                     }
                     //   console.log(response.data[0]);
                     if (response.data[0] == undefined) {
+                        $('.start').hide();
+                        document.getElementById("tokenIsWhat").innerHTML=`<mark>1. 請輸入或建立行程代號</mark>`;
+
                         if (confirm('沒有DATA, 建立新的TOEKN?')) {
                             createToken()
                         }
                     } else {
+                        $('.start').show();
                         createNamee = $('#ecToken').val();
+                        document.getElementById("tokenIsWhat").innerHTML=`<mark>1. 已輸入代號: <a style="color:red ">${createNamee}</a></mark>`;
                     }
                 })
                 .catch(function (error) {
@@ -288,6 +316,10 @@
                         families[i].name = response.data[i].mainpeople;
                         families[i].money = 0;
                     }
+
+                    $('#number').html('');
+                    $('#nameShow').html('');
+
                     $('#number').html(`${response.data.length}位`);
                     $('#nameShow').html(item.join(''));
 
@@ -303,19 +335,11 @@
                     for (let i = 0, len = response.data.length; i < len; i++) {
                         number++;
 
-                        if (i % 3 == 0) {
-                            item2.push(
-                                `
-                                <label><input type="radio" name="box" value="${response.data[i].mainpeople}" ><span> ${response.data[i].mainpeople} </span></label></br>
-                                `
-                            );
-                        } else {
-                            item2.push(
-                                `
-                                <label><input type="radio" name="box" value="${response.data[i].mainpeople}" ><span> ${response.data[i].mainpeople} </span></label>
-                                `
-                            );
-                        }
+                        item2.push(
+                        `
+                        <label><input type="radio" name="box" value="${response.data[i].mainpeople}" ><span> ${response.data[i].mainpeople} </span></label>
+                        `
+                    );
                     }
 
                     item2.push(
@@ -326,7 +350,7 @@
 
                         `
                     )
-
+                    $('#payMainMoneyPeople2').html('');
                     $('#payMainMoneyPeople2').html(item2.join(''));
 
                     item3.push(
@@ -340,19 +364,11 @@
 
                     for (let i = 0, len = response.data.length; i < len; i++) {
                         number++;
-                        if (i % 3 == 0) {
                             item3.push(
-                                `
-                             <label><input type="checkbox" name="boxs" value="${response.data[i].mainpeople}" ><span> ${response.data[i].mainpeople} </span></label><br>
                             `
-                            );
-                        } else(
-                            item3.push(
-                                `
                               <label><input type="checkbox" name="boxs" value="${response.data[i].mainpeople}" ><span> ${response.data[i].mainpeople} </span></label>
                             `
                             )
-                        );
                     }
 
                     item2.push(
@@ -362,6 +378,7 @@
                             </div>
                         `
                     )
+                    $('#userMoneyPeople2').html('');
                     $('#userMoneyPeople2').html(item3.join(''));
                 })
                 .catch(function (error) {
@@ -427,14 +444,14 @@
                     for (let i = 0, len = response.data.length; i < len; i++) {
                         item.push(
                             `
-                                    <tr>
-                                        <th scope="row">${response.data.length - i}</th>
-                                        <td>${response.data[i].paymoneypeople}</td>
-                                        <td>${response.data[i].usemoneypeople}</td>
-                                        <td>${response.data[i].howmuchmoney}</td>
-                                        <td>${response.data[i].notes}</td>
-                                        <td>${response.data[i].adddatatime}</td>
-                                    </tr>
+                                <tr>
+                                    <th scope="row">${response.data.length - i}</th>
+                                    <td>${response.data[i].paymoneypeople}</td>
+                                    <td>${response.data[i].usemoneypeople}</td>
+                                    <td>${response.data[i].howmuchmoney}</td>
+                                    <td>${response.data[i].notes}</td>
+                                    <td>${response.data[i].adddatatime}</td>
+                                </tr>
                             `
                         );
                     }
@@ -468,7 +485,6 @@
                 }
             }
 
-            abc = families;
             $('#showPersonMoney').empty();
             $('#showPersonMoney').append(`<h3 style="color:cadetblue"> 目前每個人的錢 </h3>`)
             families.forEach(element => {
@@ -547,18 +563,6 @@
     </script>
 
 
-
-
-    <style>
-        input[type=radio] {
-            zoom: 150%;
-        }
-
-
-        input[type=checkbox] {
-            zoom: 150%;
-        }
-    </style>
 
 
     <style>
@@ -657,10 +661,5 @@
             outline-offset: 1px;
         }
     </style>
-
-
-
-
-
 </body>
  
