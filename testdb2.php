@@ -66,7 +66,7 @@ function createName($mainpeople,$ID){   //請輸入以建立人物名稱
     $myquery = $classpdo->execute('SELECT count(*) FROM mainpeople Where mainpeople=? and ID =?',[$mainpeople,$ID]);
     if($myquery[0]['count(*)'] == '0'){
          $myquery2 = $classpdo->insert('mainpeople', ['mainpeople'=>$mainpeople, 'ID'=>$ID]);
-         echo json_encode(['OK']);
+         echo json_encode(['OKK']);
     }else {
         echo json_encode(['NO']);
     }
@@ -104,5 +104,3 @@ function showdeldata($id){
 }
 
 ?>
-
-

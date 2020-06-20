@@ -49,14 +49,14 @@
         </div>
     </div>
 
-    <H1>旅行用記帳平分器 測試版V.0.030</H1>
+    <H1>旅行用記帳平分器 測試版V.0.040</H1>
 
 
 
 
     <div id="payMainMoneyPeople">
         <h2 id="tokenIsWhat"><mark>1. 請輸入或建立行程代號 <mark></h2>
-        <input id="ecToken" required="required" type="text" name="token" onkeyup="this.value=this.value.replace(/[^u4e00-u9fa5w]/g,'')" placeholder="可數英中台語廣東語馬來文" />
+        <input id="ecToken" required="required" type="text" name="token" placeholder="可數英中台語廣東語馬來文" ></input>
         <button type="button" class="btn btn-outline-info" onclick="enterToken();">輸入</button>
         <button type="button" class="btn btn-outline-info" onclick="createToken()">建立</button>
     </div>
@@ -75,13 +75,10 @@
 
         <div class="collapse" id="collapseExample">
             <h3> 請輸入以建立人物名稱 </h3>
-            <input id="createName" onkeyup="this.value=this.value.replace(/[^u4e00-u9fa5w]/g,'')" type="text"
+            <input id="createName" onkeyup="this.value=this.value.replace(/,/g,'')" type="text"
                 name="token" placeholder="請輸入或建立" />
             <button type="button" class="btn btn-outline-info" onclick="createName()">輸入</button>
         </div>
-
-
-
 
         <br>
         <h2><mark>3.記帳
@@ -101,7 +98,9 @@
 
             <br><br>
             <h2>請輸入付款多少錢</h2>
-            <input id="howmuchmoney" required="required" type="number" placeholder="請輸入付款多少錢"> </input>
+            <!-- onkeydown="return my_key(event)" -->
+            <input id="howmuchmoney" onchange="return my_key(event)" 
+         required="required" type="number" placeholder="請輸入付款多少錢"> </input>
             <br>
             <h2>請輸入備注</h2>
             <input id="payMoneyNotes" type="text" placeholder="請輸入備注"> </input>
@@ -154,7 +153,7 @@
         </div>
 <br>
         <h2><mark>5.其他功能
-                <button class="btn btn-outline-warning" type="button" data-toggle="collapse" data-target="#delll"
+                <button class="btn btn-outline-secondary" type="button" data-toggle="collapse" data-target="#delll"
                     aria-expanded="false" aria-controls="delll">
                     打開
                 </button></mark></h2>
@@ -225,6 +224,16 @@
             $('#nameShow').toggle();
         }
 
+        function my_key(e){
+            if(isNaN($('#howmuchmoney').val()) == true)
+            {   
+                alert('請輸入數字');
+                $('#howmuchmoney').val('');
+            }
+        }
+
+
+
         function getAll() {
             let payMainMoneyPeople = $('input:radio[name="box"]:checked').map(function () {
                 return $(this).val();
@@ -234,6 +243,14 @@
             }).get().join(",");
             let howmuchmoney = $('#howmuchmoney').val();
             let payMoneyNotes = $('#payMoneyNotes').val();
+
+            
+
+
+            if(isNaN($('#howmuchmoney').val()) == true){
+                alert('請輸入數字');
+                return;
+            }
 
             if (payMainMoneyPeople == undefined || userMoneyPeople == undefined || howmuchmoney == undefined ||
                 howmuchmoney == 0) {
@@ -423,10 +440,15 @@
                     },
                 })
                 .then(function (response) {
-
+                    console.log(response.data);
+                    if(response.data == 'OKK'){
+                        alert('DONE');
+                    }else{
+                        alert('重覆');
+                    }
+        
                     createName2 = $('#createName').val();
                     $('#nameShow').append(`<tr><td>${createName2}</td></tr>`);
-                    alert('DONE');
                     show($('#ecToken').val());
                     $('#createName').val('');
                 })
