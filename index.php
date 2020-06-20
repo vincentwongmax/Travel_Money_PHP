@@ -6,183 +6,177 @@
     <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
 
     <meta charset="utf-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-  <meta name="description" content="">
-  <meta name="author" content="">
-  <!-- <link rel="manifest" href="./manifest.webmanifest"> -->
-  
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <!-- <link rel="manifest" href="./manifest.webmanifest"> -->
 
 
-  <meta name="apple-mobile-web-app-capable" content="yes">
-  <meta name="apple-mobile-web-app-title" content="WIN神App">
-  <link rel="apple-touch-startup-image" href="./abc.png">
-  <link rel="apple-touch-icon" href="./abc.png">
-  <meta name="apple-mobile-web-app-status-bar-style" content="black">
 
-  <link rel="icon" href="./abc.png">
-  <meta name="mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-title" content="WIN神App">
+    <link rel="apple-touch-startup-image" href="./abc.png">
+    <link rel="apple-touch-icon" href="./abc.png">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+
+    <link rel="icon" href="./abc.png">
+    <meta name="mobile-web-app-capable" content="yes">
 
 
 </head>
 
 <body>
-    <!-- <div class="d1">
-        <div class="d2">
-            <div class="d3">
-                <label><input type="checkbox" checked><span>焼豚</span></label>
-                
-       <label><input type="checkbox" checked><span>メンマ</span></label>
-                
-      <label><input type="checkbox"><span>ニンニク</span></label>
-                
-       <label><input type="checkbox" checked><span>ねぎ</span></label>
-                
-       <label><input type="checkbox"><span>味玉</span></label>
+
+    <div class="modal fade" id="eachpeople" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+        aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div id="eachpeople-modal-body" class="modal-body">
+                    ...
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-primary">Save changes</button>
+                </div>
             </div>
         </div>
-        <div class="d2">
-            <div class="d3">
-                <label><input type="radio" name="m3"><span>バリカタ
-                    </span></label><label><input type="radio" name="m3" checked><span>硬め
-                    </span></label><label><input type="radio" name="m3"><span>普通
-                    </span></label><label><input type="radio" name="m3"><span>柔らかめ
-                    </span></label>
-            </div>
-        </div>
-    </div> -->
-
-
-<!-- Button trigger modal -->
-<!-- <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">
-    Launch demo modal
-  </button>
-   -->
-  <!-- Modal -->
-  <div class="modal fade" id="eachpeople" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-    <div class="modal-dialog">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
-          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-            <span aria-hidden="true">&times;</span>
-          </button>
-        </div>
-        <div id="eachpeople-modal-body" class="modal-body">
-          ...
-        </div>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-          <button type="button" class="btn btn-primary">Save changes</button>
-        </div>
-      </div>
     </div>
-  </div>
-
-
-
-
-
-
 
     <H1>旅行用記帳平分器 測試版V.0.018</H1>
 
-   
-    
 
-    <div id="payMainMoneyPeople" >
+
+
+    <div id="payMainMoneyPeople">
         <h2 id="tokenIsWhat"><mark>1. 請輸入或建立行程代號 <mark></h2>
-        <input id="ecToken" required="required" type="text" name="token" placeholder="可數英中台語廣東語馬來文" />
+        <input id="ecToken" required="required" type="text" name="token" onkeyup="this.value=this.value.replace(/[^u4e00-u9fa5w]/g,'')" placeholder="可數英中台語廣東語馬來文" />
         <button type="button" class="btn btn-outline-info" onclick="enterToken();">輸入</button>
         <button type="button" class="btn btn-outline-info" onclick="createToken()">建立</button>
     </div>
     <br>
     <div class="start" id="start" style="display:none;">
         <h2><mark>2.人物成員有:
-            <a id="number"> </a><mark>
-            <button type="button" class="btn btn-outline-success" onclick="openNameShow()">打開</button>
-            <button class="btn btn-outline-success" type="button" data-toggle="collapse" data-target="#collapseExample"
-                aria-expanded="false" aria-controls="collapseExample">
-                新增入物
-            </button>
+                <a id="number"> </a><mark>
+                    <button type="button" class="btn btn-outline-success" onclick="openNameShow()">打開</button>
+                    <button class="btn btn-outline-success" type="button" data-toggle="collapse"
+                        data-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
+                        新增入物
+                    </button>
 
-            <h2 id="nameShow" style="display:none;"></h2>
+                    <h2 id="nameShow" style="display:none;"></h2>
         </h2>
-        
+
         <div class="collapse" id="collapseExample">
             <h3> 請輸入以建立人物名稱 </h3>
-            <input id="createName" type="text" name="token" placeholder="請輸入或建立" />
+            <input id="createName" onkeyup="this.value=this.value.replace(/[^u4e00-u9fa5w]/g,'')" type="text"
+                name="token" placeholder="請輸入或建立" />
             <button type="button" class="btn btn-outline-info" onclick="createName()">輸入</button>
         </div>
-    <br>
+
+
+
+
+        <br>
         <h2><mark>3.記帳
-        <button class="btn btn-outline-danger" type="button" data-toggle="collapse" data-target="#recordItNow"
-                aria-expanded="false" aria-controls="recordItNow">
-                打開
-        </button></mark></h2>
+                <button class="btn btn-outline-danger" type="button" data-toggle="collapse" data-target="#recordItNow"
+                    aria-expanded="false" aria-controls="recordItNow">
+                    打開
+                </button></mark></h2>
 
 
 
         <div id="recordItNow" class="collapse">
-        <div id="payMainMoneyPeople">
-            <h1>付錢人(單選)</h1>
-            <h3 id="payMainMoneyPeople2"></h3>
-            </h1>
-        </div>
+            <div id="payMainMoneyPeople">
+                <h1>付錢人(單選)</h1>
+                <h3 id="payMainMoneyPeople2"></h3>
+                </h1>
+            </div>
 
-        <br><br>
-        <h2>請輸入付款多少錢</h2>
-        <input id="howmuchmoney" required="required" type="number" placeholder="請輸入付款多少錢"> </input>
-        <br>
-        <h2>請輸入備注</h2>
-        <input id="payMoneyNotes" type="text" placeholder="請輸入備注"> </input>
-        <br><br>
+            <br><br>
+            <h2>請輸入付款多少錢</h2>
+            <input id="howmuchmoney" required="required" type="number" placeholder="請輸入付款多少錢"> </input>
+            <br>
+            <h2>請輸入備注</h2>
+            <input id="payMoneyNotes" type="text" placeholder="請輸入備注"> </input>
+            <br><br>
 
-        <div id="userMoneyPeople">
-            <h1>受益人(可多選)</h1>
-            <table id="userMoneyPeople2" class="table table-bordered">
+            <div id="userMoneyPeople">
+                <h1>受益人(可多選)</h1>
+                <table id="userMoneyPeople2" class="table table-bordered">
 
-                <tbody>
+                    <tbody>
 
-                </tbody>
-            </table>
-            <h4></h4>
-            </h1>
-        </div>
-        <input type="button" class="btn btn-outline-info" value="提交" onclick="getAll()"><br />
+                    </tbody>
+                </table>
+                <h4></h4>
+                </h1>
+            </div>
+            <input type="button" class="btn btn-outline-info" value="提交" onclick="getAll()"><br />
         </div>
         <br>
         <h2><mark>4.顯示明細
-        <button class="btn btn-outline-warning" type="button" data-toggle="collapse" data-target="#showbill"
-                aria-expanded="false" aria-controls="showbill">
-                打開
-        </button></mark></h2>
+                <button class="btn btn-outline-warning" type="button" data-toggle="collapse" data-target="#showbill"
+                    aria-expanded="false" aria-controls="showbill">
+                    打開
+                </button></mark></h2>
 
 
-    <div id="showbill" class="collapse" >
-        <table id="showWaterBill" class="table table-hover">
-            <thead>
-                <tr>
-                    <th scope="col">ID</th>
-                    <th scope="col">付款人</th>
-                    <th scope="col">受益人</th>
-                    <th scope="col">錢</th>
-                    <th scope="col">備注</th>
-                    <th scope="col">上傳時間</th>
-                </tr>
-            </thead>
-            <tbody>
-            </tbody>
-        </table>
-        <br>
+        <div id="showbill" class="collapse">
+            <table id="showWaterBill" class="table table-hover">
+                <thead>
+                    <tr>
+                        <th scope="col">ID</th>
+                        <th scope="col">付款人</th>
+                        <th scope="col">受益人</th>
+                        <th scope="col">錢</th>
+                        <th scope="col">備注</th>
+                        <th scope="col">上傳時間</th>
+                    </tr>
+                </thead>
+                <tbody>
+                </tbody>
+            </table>
+            <br>
 
-        <h4 id="showPersonMoney"></h4>
-        <br><br><br>
+            <h4 id="showPersonMoney"></h4>
+            <br><br><br>
 
 
-        <h4 id="paypaypay"></h4>
+            <h4 id="paypaypay"></h4>
+            
+        </div>
+<br>
+        <h2><mark>5.其他功能
+                <button class="btn btn-outline-warning" type="button" data-toggle="collapse" data-target="#delll"
+                    aria-expanded="false" aria-controls="delll">
+                    打開
+                </button></mark></h2>
 
-</div>
+
+        <div id= "delll" class="collapse">
+            <h3> 顯示已刪除的資料
+            <table id="delllBill" class="table table-hover">
+                <thead>
+                    <tr>
+                        <th scope="col">ID</th>
+                        <th scope="col">付款人</th>
+                        <th scope="col">受益人</th>
+                        <th scope="col">錢</th>
+                        <th scope="col">備注</th>
+                        <th scope="col">上傳時間</th>
+                    </tr>
+                </thead>
+                <tbody>
+                </tbody>
+            </table>
+        </div>
     </div>
     </br>
 
@@ -192,11 +186,6 @@
 
 
     <script>
-
-
-
-
-
         let getUrlString = location.href;
         let url = new URL(getUrlString);
         let get = url.searchParams.get('token');
@@ -253,13 +242,13 @@
                 if (payMainMoneyPeople == '' || userMoneyPeople == '' || howmuchmoney == '') {
                     alert("輸入內容不允許為空")
                 } else {
-                    dataToDB(payMainMoneyPeople, userMoneyPeople, howmuchmoney , payMoneyNotes);
+                    dataToDB(payMainMoneyPeople, userMoneyPeople, howmuchmoney, payMoneyNotes);
                 }
             }
             show($('#ecToken').val());
             $('#howmuchmoney').val('');
             $('#payMoneyNotes').val('')
-            
+
         }
 
         function enterToken() {
@@ -270,19 +259,19 @@
                     },
                 })
                 .then(function (response) {
-                    if(families != undefined || families!= ''){
-                        families= [];
+                    if (families != undefined || families != '') {
+                        families = [];
                     }
 
                     show($('#ecToken').val());
+                    
                     if ($('#ecToken').val() == null || $('#ecToken').val() == '') {
                         alert('請輸入TOKEN');
                         return;
                     }
-                    //   console.log(response.data[0]);
                     if (response.data[0] == undefined) {
                         $('.start').hide();
-                        document.getElementById("tokenIsWhat").innerHTML=`<mark>1. 請輸入或建立行程代號</mark>`;
+                        document.getElementById("tokenIsWhat").innerHTML = `<mark>1. 請輸入或建立行程代號</mark>`;
 
                         if (confirm('沒有DATA, 建立新的TOEKN?')) {
                             createToken()
@@ -290,7 +279,8 @@
                     } else {
                         $('.start').show();
                         createNamee = $('#ecToken').val();
-                        document.getElementById("tokenIsWhat").innerHTML=`<mark>1. 已輸入代號: <a style="color:red ">${createNamee}</a></mark>`;
+                        document.getElementById("tokenIsWhat").innerHTML =
+                            `<mark>1. 已輸入代號: <a style="color:red ">${createNamee}</a></mark>`;
                     }
                 })
                 .catch(function (error) {
@@ -333,6 +323,7 @@
                 })
                 .then(function (response) {
                     showWaterBill();
+                    showdeldata();
                     item = [];
                     item2 = [];
                     item3 = [];
@@ -373,10 +364,10 @@
                         number++;
 
                         item2.push(
-                        `
+                            `
                         <label><input type="radio" name="box" value="${response.data[i].mainpeople}" ><span> ${response.data[i].mainpeople} </span></label>
                         `
-                    );
+                        );
                     }
 
                     item2.push(
@@ -401,11 +392,11 @@
 
                     for (let i = 0, len = response.data.length; i < len; i++) {
                         number++;
-                            item3.push(
+                        item3.push(
                             `
                               <label><input type="checkbox" name="boxs" value="${response.data[i].mainpeople}" ><span> ${response.data[i].mainpeople} </span></label>
                             `
-                            )
+                        )
                     }
 
                     item2.push(
@@ -444,19 +435,18 @@
                 });
         }
 
-        function dataToDB(payMainMoneyPeople, userMoneyPeople, howmuchmoney,payMoneyNotes) {
+        function dataToDB(payMainMoneyPeople, userMoneyPeople, howmuchmoney, payMoneyNotes) {
             axios.post('testdb2.php', {
                     data: {
                         action: 'dataToDB',
                         payMainMoneyPeople: payMainMoneyPeople,
                         userMoneyPeople: userMoneyPeople,
                         howmuchmoney: howmuchmoney,
-                        payMoneyNotes : payMoneyNotes,
+                        payMoneyNotes: payMoneyNotes,
                         token: createNamee,
                     },
                 })
                 .then(function (response) {
-                    console.log('dataToDB test');
                     console.log(response.request.responseText);
                     if (response.request.responseText == 'NOOOOOOO') {
                         console.log(response);
@@ -488,13 +478,43 @@
                                     <td>${response.data[i].usemoneypeople}</td>
                                     <td>${response.data[i].howmuchmoney}</td>
                                     <td>${response.data[i].notes}</td>
-                                    <td>${response.data[i].adddatatime}</td>
+                                    <td onclick ="deldata('${response.data[i].IDED}');" >${response.data[i].adddatatime}</td>
                                 </tr>
                             `
                         );
                     }
                     $('#showWaterBill > tbody').html(item.join(''));
                     showWaterBillAccount(response.data);
+                })
+                .catch(function (error) {
+                    console.log(error);
+                });
+        }
+        
+        function showdeldata() {
+            axios.post('testdb2.php', {
+                    data: {
+                        action: 'showdeldata',
+                        ecToken: $('#ecToken').val(),
+                    },
+                })
+                .then(function (response) {
+                    item = [];
+                    for (let i = 0, len = response.data.length; i < len; i++) {
+                        item.push(
+                            `
+                                <tr>
+                                    <th scope="row">${response.data.length - i}</th>
+                                    <td>${response.data[i].paymoneypeople}</td>
+                                    <td>${response.data[i].usemoneypeople}</td>
+                                    <td>${response.data[i].howmuchmoney}</td>
+                                    <td>${response.data[i].notes}</td>
+                                    <td>${response.data[i].adddatatime}</td>
+                                </tr>
+                            `
+                        );
+                    }
+                    $('#delllBill > tbody').html(item.join(''));
                 })
                 .catch(function (error) {
                     console.log(error);
@@ -509,7 +529,7 @@
                 let howmuchmoney2 = msg[i].howmuchmoney;
 
                 for (let i = 0; i < families.length; i++) { //付錢人錢相加
-                   // families[i].money = families[i].money;
+                    // families[i].money = families[i].money;
 
                     if (families[i].name == paymoneypeople2) {
                         families[i].money = families[i].money + howmuchmoney2;
@@ -526,7 +546,9 @@
             $('#showPersonMoney').empty();
             $('#showPersonMoney').append(`<h3 style="color:cadetblue"> 目前每個人的錢 </h3>`)
             families.forEach(element => {
-                $('#showPersonMoney').append(`<a onclick="eachpeoplefunction('${element.name}');" >${element.name} =>  ${element.money} </a><br>`)
+                $('#showPersonMoney').append(
+                    `<a onclick="eachpeoplefunction('${element.name}');" >${element.name} =>  ${element.money} </a><br>`
+                    )
             });
 
             families.forEach(element => {
@@ -539,9 +561,28 @@
             wtfwhocare(families);
         }
 
-        function eachpeoplefunction(people){
+        function deldata(id) {
+
+            if (confirm('進行刪除，刪除後無法復原')) {
+                axios.post('testdb2.php', {
+                        data: {
+                            action: 'deldata',
+                            id: id,
+                        },
+                    })
+                    .then(function (response) {
+                      console.log('已刪除成功');
+                      show($('#ecToken').val());
+                    })
+                    .catch(function (error) {
+                        console.log(error);
+                    });
+            }
+        }
+
+        function eachpeoplefunction(people) {
             $('#eachpeople').modal('show');
-            document.getElementById('eachpeople-modal-body').innerHTML= `${people}`
+            document.getElementById('eachpeople-modal-body').innerHTML = `${people}`
         }
 
         function sortByKey(array, key) { //排序JSON 
@@ -594,6 +635,7 @@
                 }
             }
         }
+
     </script>
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
         integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous">

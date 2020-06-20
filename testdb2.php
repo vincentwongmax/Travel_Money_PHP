@@ -27,6 +27,12 @@ switch ($b) {
     case "showWaterBill":
         showWaterBill($c["ecToken"]);
         break;
+    case "deldata":
+        deldata($c["id"]);
+        break;
+    case "showdeldata":
+        showdeldata($c["ecToken"]);
+        break;
     default:
         echo "Error";
         break;
@@ -80,6 +86,20 @@ function dataToDB($payMainMoneyPeople,$userMoneyPeople,$howmuchmoney,$ID, $notes
 function showWaterBill($token){
     global $classpdo;
     $myquery = $classpdo->execute('SELECT * FROM payrecord Where ID=? order by adddatatime DESC',[$token]);
+    echo json_encode($myquery);
+}
+
+function deldata($id){
+    global $classpdo;
+    $myquery = $classpdo->execute('insert into travelmoney.del(ID,paymoneypeople,usemoneypeople,howmuchmoney,notes,adddatatime,IDED) select * from travelmoney.payrecord where ided=?;
+    ',[$id]);
+    $myquery = $classpdo->execute('DELETE FROM payrecord WHERE ided= ?',[$id]);
+    echo json_encode($myquery);
+}
+
+function showdeldata($id){
+    global $classpdo;
+    $myquery = $classpdo->execute('SELECT * FROM del Where ID=? order by IDDD DESC',[$id]);
     echo json_encode($myquery);
 }
 
