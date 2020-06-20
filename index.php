@@ -437,6 +437,7 @@
                     $('#nameShow').append(`<tr><td>${createName2}</td></tr>`);
                     alert('DONE');
                     show($('#ecToken').val());
+                    $('#createName').val('');
                 })
                 .catch(function (error) {
                     console.log(error);
@@ -508,7 +509,7 @@
                 let howmuchmoney2 = msg[i].howmuchmoney;
 
                 for (let i = 0; i < families.length; i++) { //付錢人錢相加
-                    families[i].money = families[i].money;
+                   // families[i].money = families[i].money;
 
                     if (families[i].name == paymoneypeople2) {
                         families[i].money = families[i].money + howmuchmoney2;

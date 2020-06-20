@@ -509,15 +509,18 @@
 
                 for (let i = 0; i < families.length; i++) { //付錢人錢相加
                     families[i].money = families[i].money;
-
-                    if (families[i].name == paymoneypeople2) {
+                    if (families[i].name == '黃') {
+                    //   console.log(families[i].name);
+                        console.log(`${howmuchmoney2}`);
+                        
                         families[i].money = families[i].money + howmuchmoney2;
                     }
-
-                    for (let pp = 0; pp < usemoneypeople2.length; pp++) {
-                        if (families[i].name == usemoneypeople2[pp]) {
-                            families[i].money = families[i].money - (howmuchmoney2 / usemoneypeople2.length)
-                        }
+                    
+                    if (families[i].name == '黃') {
+                        //  console.log(families[i].name);
+                        let flogshow =(howmuchmoney2 / usemoneypeople2.length);
+                        families[i].money = families[i].money - (howmuchmoney2 / usemoneypeople2.length)
+                        console.log(flogshow*-1);
                     }
                 }
             }
