@@ -432,7 +432,11 @@
         }
 
         function createName() {
-            axios.post('testdb2.php', {
+            let indexf = $('#createName').val();
+            var idx = indexf.indexOf(",") ;
+            var idxs = $('#createName').val().indexOf("，") ;
+            if(idx == -1 && idxs == -1 ){
+                axios.post('testdb2.php', {
                     data: {
                         action: 'createName',
                         mainpeople: $('#createName').val(),
@@ -446,7 +450,6 @@
                     }else{
                         alert('重覆');
                     }
-        
                     createName2 = $('#createName').val();
                     $('#nameShow').append(`<tr><td>${createName2}</td></tr>`);
                     show($('#ecToken').val());
@@ -455,6 +458,9 @@
                 .catch(function (error) {
                     console.log(error);
                 });
+            }else{
+                alert('請勿輸入禁止字元')
+            }
         }
 
         function dataToDB(payMainMoneyPeople, userMoneyPeople, howmuchmoney, payMoneyNotes) {
@@ -480,7 +486,7 @@
                 .catch(function (error) {
                     console.log(error);
                 });
-        }
+            }
 
         function showWaterBill() {
             axios.post('testdb2.php', {
