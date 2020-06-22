@@ -49,10 +49,7 @@
         </div>
     </div>
 
-    <H1>旅行用記帳平分器 測試版V.0.040</H1>
-
-
-
+    <H1>旅行用記帳平分器 測試版V.0.055</H1>
 
     <div id="payMainMoneyPeople">
         <h2 id="tokenIsWhat"><mark>1. 請輸入或建立行程代號 <mark></h2>
@@ -86,8 +83,6 @@
                     aria-expanded="false" aria-controls="recordItNow">
                     打開
                 </button></mark></h2>
-
-
 
         <div id="recordItNow" class="collapse">
             <div id="payMainMoneyPeople">
@@ -158,7 +153,6 @@
                     打開
                 </button></mark></h2>
 
-
         <div id= "delll" class="collapse">
             <h3> 顯示已刪除的資料
             <table id="delllBill" class="table table-hover">
@@ -179,42 +173,14 @@
     </div>
     </br>
 
-
-
-
-
-
     <script>
         let getUrlString = location.href;
         let url = new URL(getUrlString);
         let get = url.searchParams.get('token');
 
-        if (get == null || get == '') {
-            //     abc();
-            // } else {
-            //     document.getElementById('ecToken').value = get;
-            //     enterToken();
-        } else {
+        if (get != null || get != '') {
             document.getElementById('ecToken').value = get;
         }
-
-        // function abc() {
-        //     var input = prompt("請輸入token");
-
-        //     if (input == null || input == '') {
-        //         abc();
-        //     } else {
-        //         document.getElementById('ecToken').value = input;
-        //         input = "";
-        //         enterToken();
-        //     }
-        // }
-        // if (get == null || get == '') {
-        //     abc();
-        // } else {
-        //     document.getElementById('ecToken').value = get;
-        //     enterToken();
-        // }
 
         var userMoneyPeople;
         var payMainMoneyPeople;
@@ -232,8 +198,6 @@
             }
         }
 
-
-
         function getAll() {
             let payMainMoneyPeople = $('input:radio[name="box"]:checked').map(function () {
                 return $(this).val();
@@ -243,9 +207,6 @@
             }).get().join(",");
             let howmuchmoney = $('#howmuchmoney').val();
             let payMoneyNotes = $('#payMoneyNotes').val();
-
-            
-
 
             if(isNaN($('#howmuchmoney').val()) == true){
                 alert('請輸入數字');
@@ -364,7 +325,6 @@
 
                     $('#number').html('');
                     $('#nameShow').html('');
-
                     $('#number').html(`${response.data.length}位`);
                     $('#nameShow').html(item.join(''));
 
@@ -635,12 +595,12 @@
 
                     if (z > 0) {
                         if (x * -1 != 0) {
-                            $('#paypaypay').append(`${wtf[people].name} ==>${wtf[i].name}`);
+                            $('#paypaypay').append(`${wtf[people].name} ==>${wtf[i].name} <button type="button"  class="btn btn-secondary btn-sm" onclick="autoPay('${wtf[people].name},${wtf[i].name},${x*-1}')">結算</button>`);
                         }
 
                     } else {
                         if (y != 0) {
-                            $('#paypaypay').append(`${wtf[people].name} ==>${wtf[i].name}`);
+                            $('#paypaypay').append(`${wtf[people].name} ==>${wtf[i].name} <button type="button"  class="btn btn-secondary btn-sm" onclick="autoPay('${wtf[people].name}','${wtf[i].name}','${y}')">結算</button>`);
                         }
                     }
 
@@ -651,7 +611,7 @@
                     if (z > 0) {
                         wtf[people].money = z;
                         if (x * -1 != 0) {
-                            $('#paypaypay').append(`<p style="color:red" >${x*-1} 元<br></p>`);
+                            $('#paypaypay').append(`<p style="color:red" >${x*-1} 元 <br></p>`);
                         }
                         z = 0;
                     } else {
@@ -661,6 +621,16 @@
                         }
                     }
                 }
+            }
+        }
+
+        function autoPay(a,b,c){
+            let d = '還錢(系統)';
+            if(confirm(`${a} => ${b}  ${c}元`))
+            {
+                dataToDB(a, b, c, d);
+                show($('#ecToken').val());
+                alert('已完成結帳');
             }
         }
 
