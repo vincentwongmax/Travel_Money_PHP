@@ -595,12 +595,17 @@
 
                     if (z > 0) {
                         if (x * -1 != 0) {
-                            $('#paypaypay').append(`${wtf[people].name} ==>${wtf[i].name} <button type="button"  class="btn btn-secondary btn-sm" onclick="autoPay('${wtf[people].name},${wtf[i].name},${x*-1}')">結算</button>`);
+                            let output3=x*-1
+                            let outputok3=output3.toFixed(2)
+                            $('#paypaypay').append(`${wtf[people].name} ==>${wtf[i].name} <button type="button"  class="btn btn-secondary btn-sm" onclick="autoPay('${wtf[people].name}','${wtf[i].name}','${outputok3}')">結算A</button>`);
                         }
 
                     } else {
                         if (y != 0) {
-                            $('#paypaypay').append(`${wtf[people].name} ==>${wtf[i].name} <button type="button"  class="btn btn-secondary btn-sm" onclick="autoPay('${wtf[people].name}','${wtf[i].name}','${y}')">結算</button>`);
+                            let output4=x*-1
+                            let outputok4=output4.toFixed(2)
+
+                            $('#paypaypay').append(`${wtf[people].name} ==>${wtf[i].name} <button type="button"  class="btn btn-secondary btn-sm" onclick="autoPay('${wtf[people].name}','${wtf[i].name}','${outputok4}')">結算B</button>`);
                         }
                     }
 
@@ -611,13 +616,17 @@
                     if (z > 0) {
                         wtf[people].money = z;
                         if (x * -1 != 0) {
-                            $('#paypaypay').append(`<p style="color:red" >${x*-1} 元 <br></p>`);
+                            let output1=x*-1
+                            outputok1=output1.toFixed(2)
+                            $('#paypaypay').append(`<p style="color:red" >${outputok1} 元 <br></p>`);
                         }
                         z = 0;
                     } else {
                         people = people - 1;
                         if (y != 0) {
-                            $('#paypaypay').append(`<p style="color:red" >${y} 元<br></p>`);
+                            let output2=y;
+                            outputok2=output2.toFixed(2)
+                            $('#paypaypay').append(`<p style="color:red" >${outputok2} 元<br></p>`);
                         }
                     }
                 }
@@ -627,10 +636,13 @@
         function autoPay(a,b,c){
             let d = '還錢(系統)';
             if(confirm(`${a} => ${b}  ${c}元`))
-            {
-                dataToDB(a, b, c, d);
-                show($('#ecToken').val());
-                alert('已完成結帳');
+            {   
+                let c1=prompt(`請輸入${a} 要結${b} 多少錢`,c);
+                {
+                    dataToDB(a, b, c1, d);
+                    show($('#ecToken').val());
+                    alert('已完成結帳');
+                }
             }
         }
 
