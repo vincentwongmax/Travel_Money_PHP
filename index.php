@@ -435,7 +435,7 @@
             let indexf = $('#createName').val();
             var idx = indexf.indexOf(",") ;
             var idxs = $('#createName').val().indexOf("，") ;
-            if(idx == -1 && idxs == -1 ){
+            if(idx == -1 && idxs == -1 && $('#createName').val() != null && $('#createName').val() != ''){
                 axios.post('testdb2.php', {
                     data: {
                         action: 'createName',
