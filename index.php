@@ -139,12 +139,22 @@
             </table>
             <br>
 
-            <h4 id="showPersonMoney"></h4>
+
+<table id="showPersonMoney" class=" table-Light">
+                <thead>
+                    <tr>
+                        <th scope="col">名字</th>
+                        <th scope="col">餘額</th>
+                        <th scope="col"></th>
+                        <th scope="col"></th>
+                    </tr>
+                </thead>
+                <tbody>
+                <h3 style="font-weight:bold;" >目前每個人的錢</h3>
+                </tbody>
+            </table>
             <br><br><br>
-
-
             <h4 id="paypaypay"></h4>
-            
         </div>
 <br>
         <h2><mark>5.其他功能
@@ -531,15 +541,49 @@
                 }
             }
 
-            $('#showPersonMoney').empty();
-            $('#showPersonMoney').append(`<h3 style="color:cadetblue"> 目前每個人的錢 </h3>`)
-            families.forEach(element => {
-                let ele2 = element.money.toFixed(2)
-                $('#showPersonMoney').append(
-                    `<a onclick="eachpeoplefunction('${element.name}');" >${element.name} => 
-                     ${ele2} </a><br>`
-                    )
-            });
+
+
+           
+
+
+
+            // $('#showPersonMoney').empty();
+            // $('#showPersonMoney').append(`<h3 style="color:cadetblue"> 目前每個人的錢 </h3>`)
+            
+            // families.forEach(element => {
+            //     let ele2 = element.money.toFixed(2)
+            //     itemtable.push(
+            //                 `   
+            //                     <tr>
+            //                         <th onclick="eachpeoplefunction('${element.name}');" scope="row">${element.name}</th>
+            //                         <td>${ele2}</td>
+            //                     </tr>
+            //                 `
+            //                 )
+
+            // });
+
+            // $('#showPersonMoney >tbody ').html(itemtable.join(''));
+            var itemtable=[];
+            for (let i = 0, len = families.length; i < len; i++) {
+                let aabb =families[i].name;
+                let ele2 = families[i].money.toFixed(2);
+         
+                console.log(families[i].name ,ele2);
+                
+                itemtable.push(
+                            `
+                                <tr>
+                                    <th onclick="eachpeoplefunction('${aabb}');" scope="row"><button type="button" class="btn btn-outline-info">${aabb}</button></th>
+                                    <td style="color:red;">${ele2}</td>
+                                    <td></td>
+                                    <td></td>
+                                </tr>
+                            `
+                        );
+            }
+
+            $('#showPersonMoney > tbody').html(itemtable.join(''));
 
             families.forEach(element => {
                 element.money = element.money * -1;
