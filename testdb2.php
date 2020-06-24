@@ -33,6 +33,9 @@ switch ($b) {
     case "showdeldata":
         showdeldata($c["ecToken"]);
         break;
+    case "eachpeople":
+        eachpeople($c["eachpeople"],$c["ecToken"]);
+        break;
     default:
         echo "Error";
         break;
@@ -93,8 +96,13 @@ function deldata($id){
     global $classpdo;
     $myquery = $classpdo->execute('insert into travelmoney.del(ID,paymoneypeople,usemoneypeople,howmuchmoney,notes,adddatatime,IDED) select * from travelmoney.payrecord where ided=?;
     ',[$id]);
-    $myquery = $classpdo->execute('DELETE FROM payrecord WHERE ided= ?',[$id]);
-    echo json_encode($myquery);
+    $myquery = $classpdo->execute('SELECT count(*) FROM del Where IDED=?',[$id]);
+    if($myquery[0] >= 1){
+        $myquery2 = $classpdo->execute('DELETE FROM payrecord WHERE ided= ?',[$id]);
+        echo json_encode($myquery2);
+    }else{
+        echo json_encode('ERROR');
+    }
 }
 
 function showdeldata($id){
@@ -103,4 +111,11 @@ function showdeldata($id){
     echo json_encode($myquery);
 }
 
+
+function eachpeople($a,$id){
+    global $classpdo;
+    $myquery1 = $classpdo->execute('SELECT * FROM payrecord Where ID=? and paymoneypeople=?',[$id,$a]);
+    $myquery2 = $classpdo->execute('SELECT * FROM payrecord Where ID=? and usemoneypeople like ?',[$id,"%$a%"]);
+    echo json_encode([$myquery1,$myquery2]);
+}
 ?>

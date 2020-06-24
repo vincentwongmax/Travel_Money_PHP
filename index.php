@@ -144,8 +144,8 @@
                 <thead>
                     <tr>
                         <th scope="col">名字</th>
+                        <th scope="col">&emsp;</th>
                         <th scope="col">餘額</th>
-                        <th scope="col"></th>
                         <th scope="col"></th>
                     </tr>
                 </thead>
@@ -414,7 +414,6 @@
                     },
                 })
                 .then(function (response) {
-                    console.log(response.data);
                     if(response.data == 'OKK'){
                         alert('DONE');
                     }else{
@@ -445,9 +444,7 @@
                     },
                 })
                 .then(function (response) {
-                    console.log(response.request.responseText);
                     if (response.request.responseText == 'NOOOOOOO') {
-                        console.log(response);
                         alert('有錯哦');
                         return;
                     }
@@ -540,49 +537,20 @@
                     }
                 }
             }
-
-
-
-           
-
-
-
-            // $('#showPersonMoney').empty();
-            // $('#showPersonMoney').append(`<h3 style="color:cadetblue"> 目前每個人的錢 </h3>`)
-            
-            // families.forEach(element => {
-            //     let ele2 = element.money.toFixed(2)
-            //     itemtable.push(
-            //                 `   
-            //                     <tr>
-            //                         <th onclick="eachpeoplefunction('${element.name}');" scope="row">${element.name}</th>
-            //                         <td>${ele2}</td>
-            //                     </tr>
-            //                 `
-            //                 )
-
-            // });
-
-            // $('#showPersonMoney >tbody ').html(itemtable.join(''));
             var itemtable=[];
             for (let i = 0, len = families.length; i < len; i++) {
                 let aabb =families[i].name;
                 let ele2 = families[i].money.toFixed(2);
-         
-                console.log(families[i].name ,ele2);
-                
                 itemtable.push(
                             `
                                 <tr>
                                     <th onclick="eachpeoplefunction('${aabb}');" scope="row"><button type="button" class="btn btn-outline-info">${aabb}</button></th>
+                                    <td> &emsp;   ||   &emsp; &emsp; </td>
                                     <td style="color:red;">${ele2}</td>
-                                    <td></td>
-                                    <td></td>
                                 </tr>
                             `
                         );
             }
-
             $('#showPersonMoney > tbody').html(itemtable.join(''));
 
             families.forEach(element => {
@@ -596,7 +564,6 @@
         }
 
         function deldata(id) {
-
             if (confirm('進行刪除，刪除後無法復原')) {
                 axios.post('testdb2.php', {
                         data: {
@@ -605,7 +572,6 @@
                         },
                     })
                     .then(function (response) {
-                      console.log('已刪除成功');
                       show($('#ecToken').val());
                     })
                     .catch(function (error) {
@@ -615,8 +581,77 @@
         }
 
         function eachpeoplefunction(people) {
+            
+
+            axios.post('testdb2.php', {
+                    data: {
+                        ecToken: $('#ecToken').val(),
+                        action: 'eachpeople',
+                        eachpeople: people,
+                    },
+                })
+                .then(function (response) {
+                    $('#eachpeople-modal-body').html('');
+                    item = [];
+
+                    item.push(
+                            `
+                                <tr>    
+                                    <th scope="row">已付錢項目</th>
+                                </tr>
+                            `
+                        );
+
+                    for (let i = 0, len = response.data[0].length; i < len; i++) {
+                        item.push(
+                            `
+                                <tr>    
+                                    <th scope="row"></th>
+                                    <td>筆記:${response.data[0][i].notes}</td>
+                                    <td>金額:${response.data[0][i].howmuchmoney}</td>
+                                    <td>日期:${response.data[0][i].adddatatime}</td>
+                                </tr>
+                            `
+                        );
+                    }
+
+                    item.push(
+                            `
+                                <tr>    
+                                    <th scope="row">需要付款項目</th>
+                                </tr>
+                            `
+                        );
+                    
+                    console.log(response.data);
+                    
+                    for (let i = 0, len = response.data[1].length; i < len; i++) {
+                   //     console.log('111');
+                   //     console.log(response.data[1]);
+                         let a=response.data[1][i].usemoneypeople.split(',');
+                         let b=a.length;
+                         let c =(response.data[1][i].howmuchmoney)/b
+                        item.push(
+                            `
+                                <tr>    
+                                    <th scope="row"></th>
+                                    <td>筆記:${response.data[1][i].notes}</td>
+                                    <td>金額:${c}</td>
+                                    <td>日期:${response.data[1][i].adddatatime}</td>
+                                </tr>
+                            `
+                        );
+                    }
+
+                    $('#eachpeople-modal-body').html(item.join(''));
+                })
+                .catch(function (error) {
+                    console.log(error);
+                });
+
             $('#eachpeople').modal('show');
-            document.getElementById('eachpeople-modal-body').innerHTML = `${people}`
+
+
         }
 
         function sortByKey(array, key) { //排序JSON 
@@ -799,11 +834,7 @@
             outline: solid 2px rgba(250, 128, 114, 0.5);
             outline-offset: 1px;
         }
+
     </style>
-
-
-
-
-
 </body>
  
