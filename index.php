@@ -606,10 +606,9 @@
                         item.push(
                             `
                                 <tr>    
-                                    <th scope="row"></th>
-                                    <td>筆記:${response.data[0][i].notes}</td>
-                                    <td>金額:${response.data[0][i].howmuchmoney}</td>
-                                    <td>日期:${response.data[0][i].adddatatime}</td>
+                                    <td>筆記:${response.data[0][i].notes}----</td>
+                                    <td style="color:red" >金額:${response.data[0][i].howmuchmoney}</td>
+                                    <td>----日期:${response.data[0][i].adddatatime}</td>
                                 </tr>
                             `
                         );
@@ -633,11 +632,10 @@
                          let c =(response.data[1][i].howmuchmoney)/b
                         item.push(
                             `
-                                <tr>    
-                                    <th scope="row"></th>
-                                    <td>筆記:${response.data[1][i].notes}</td>
-                                    <td>金額:${c}</td>
-                                    <td>日期:${response.data[1][i].adddatatime}</td>
+                                <tr>
+                                    <td> 筆記 : ${response.data[1][i].notes}----</td>
+                                    <td style="color:red" > 金額 : -${c}</td>
+                                    <td>----日期:${response.data[1][i].adddatatime}  </td>
                                 </tr>
                             `
                         );
