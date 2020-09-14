@@ -2,7 +2,7 @@
 
 include_once 'resful.php';
 
-$classpdo = new DatabaseAccessObject('localhost','root','','travelmoney');
+$classpdo = new DatabaseAccessObject('localhost','root','123456','travelmoney');
 
 $a = json_decode(file_get_contents("php://input"),true);
 $c=$a["data"];
@@ -77,7 +77,7 @@ function createName($mainpeople,$ID){   //請輸入以建立人物名稱
 
 function dataToDB($payMainMoneyPeople,$userMoneyPeople,$howmuchmoney,$ID, $notes){
     global $classpdo;
-    $myquery = $classpdo->execute('SELECT count(*) FROM payrecord Where ID=? and paymoneypeople =? and usemoneypeople =? and howmuchmoney =?',[$ID,$payMainMoneyPeople,$userMoneyPeople,$howmuchmoney]);
+    $myquery = $classpdo->execute('SELECT count(*) FROM payrecord Where ID=? and paymoneypeople =? and usemoneypeople =? and howmuchmoney =? and notes =?' ,[$ID,$payMainMoneyPeople,$userMoneyPeople,$howmuchmoney,$notes]);
     if($myquery[0]['count(*)'] == '0'){
          $myquery2 = $classpdo->insert('payrecord', ['ID'=>$ID,'paymoneypeople'=>$payMainMoneyPeople,'usemoneypeople'=>$userMoneyPeople,'howmuchmoney'=>$howmuchmoney,'notes'=>$notes]);
          echo json_encode(['OKKKKKKKK']);
