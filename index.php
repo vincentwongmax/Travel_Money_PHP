@@ -444,8 +444,8 @@
                     },
                 })
                 .then(function (response) {
-                    if (response.request.responseText == 'NOOOOOOO') {
-                        alert('有錯哦');
+                    if (response.request.responseText == '["NOOOOOOO"]') {
+                        alert('有錯哦，請注意備注是否有重覆');
                         return;
                     }
                     alert('DONE');
