@@ -49,10 +49,11 @@
         </div>
     </div>
 
-    <H1>旅行用記帳平分器 測試版V.0.055</H1>
+    <H1>旅行用記帳平分器 測試版V.0.065</H1>
 
     <div id="payMainMoneyPeople">
         <h2 id="tokenIsWhat"><mark>1. 請輸入或建立行程代號 <mark></h2>
+
         <input id="ecToken" required="required" type="text" name="token" placeholder="可數英中台語廣東語馬來文" ></input>
         <button type="button" class="btn btn-outline-info" onclick="enterToken();">輸入</button>
         <button type="button" class="btn btn-outline-info" onclick="createToken()">建立</button>
@@ -268,7 +269,7 @@
                         $('.start').show();
                         createNamee = $('#ecToken').val();
                         document.getElementById("tokenIsWhat").innerHTML =
-                            `<mark>1. 已輸入代號: <a style="color:red ">${createNamee}</a></mark>`;
+                            `<mark>1. 已輸入代號: <a style="color:red ">${createNamee}  </a><button type="button" class="btn btn-outline-primary" onclick="shareLink()">分享</button></mark>`;
                     }
                 })
                 .catch(function (error) {
@@ -578,6 +579,18 @@
                         console.log(error);
                     });
             }
+        }
+
+        function shareLink(){
+			var dummy = document.createElement('input'),
+		//	text = window.location.href + `?token=${$('#ecToken').val()}`;
+			text = `http://mankinwong.xyz` + `?token=${$('#ecToken').val()}`;
+			document.body.appendChild(dummy);
+			dummy.value = text;
+			dummy.select();
+			document.execCommand('copy');
+			document.body.removeChild(dummy);
+			alert("已複製這次專案網址，可用於分享");
         }
 
         function eachpeoplefunction(people) {
