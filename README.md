@@ -13,9 +13,9 @@
 
 ## 使用連結
 
-## http://mankinwong.xyz
+## https://travelmoney.ga
 # 或
-## http://mankinwong.xyz?token=123
+## https://travelmoney.ga?token=123
 
 ### token 後面的數字可以自行更改或輸入, 方便每次記帳時能夠直接進行相對應的帳目
 
@@ -40,7 +40,5 @@
 1. 介面美化 預計
 2. 四捨五入顯示按鍵
 
-預計下次更新時間: 2020/09/30
-最後版本會先在http://mankinwong.xyz 更新後不定期上傳github
 
 
