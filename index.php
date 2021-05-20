@@ -54,7 +54,7 @@
     <div id="payMainMoneyPeople">
         <h2 id="tokenIsWhat"><mark>1. 請輸入或建立行程代號 <mark></h2>
 
-        <input id="ecToken" required="required" type="text" name="token" placeholder="可數英中台語廣東語馬來文" ></input>
+        <input id="ecToken" required="required" type="text" name="token" placeholder="可數英中台語廣東語馬來文"></input>
         <button type="button" class="btn btn-outline-info" onclick="enterToken();">輸入</button>
         <button type="button" class="btn btn-outline-info" onclick="createToken()">建立</button>
     </div>
@@ -73,8 +73,8 @@
 
         <div class="collapse" id="collapseExample">
             <h3> 請輸入以建立人物名稱 </h3>
-            <input id="createName" onkeyup="this.value=this.value.replace(/,/g,'')" type="text"
-                name="token" placeholder="請輸入或建立" />
+            <input id="createName" onkeyup="this.value=this.value.replace(/,/g,'')" type="text" name="token"
+                placeholder="請輸入或建立" />
             <button type="button" class="btn btn-outline-info" onclick="createName()">輸入</button>
         </div>
 
@@ -95,8 +95,8 @@
             <br><br>
             <h2>請輸入付款多少錢</h2>
             <!-- onkeydown="return my_key(event)" -->
-            <input id="howmuchmoney" onchange="return my_key(event)" 
-         required="required" type="number" placeholder="請輸入付款多少錢"> </input>
+            <input id="howmuchmoney" onchange="return my_key(event)" required="required" type="number"
+                placeholder="請輸入付款多少錢"> </input>
             <br>
             <h2>請輸入備注</h2>
             <input id="payMoneyNotes" type="text" placeholder="請輸入備注"> </input>
@@ -122,7 +122,6 @@
                     打開
                 </button></mark></h2>
 
-
         <div id="showbill" class="collapse">
             <table id="showWaterBill" class="table table-hover">
                 <thead>
@@ -140,8 +139,17 @@
             </table>
             <br>
 
+        </div>
+        <br>
 
-<table id="showPersonMoney" class=" table-Light">
+        <h2><mark>5.個人明細
+                <button class="btn btn-outline-warning" type="button" data-toggle="collapse" data-target="#personal"
+                    aria-expanded="false" aria-controls="personal">
+                    打開
+                </button></mark></h2>
+
+        <div id="personal" class="collapse">
+            <table id="showPersonMoney" class=" table-Light">
                 <thead>
                     <tr>
                         <th scope="col">名字</th>
@@ -151,35 +159,45 @@
                     </tr>
                 </thead>
                 <tbody>
-                <h3 style="font-weight:bold;" >目前每個人的錢</h3>
+                    <h3 style="font-weight:bold;">目前每個人的錢</h3>
                 </tbody>
             </table>
-            <br><br><br>
+        </div>
+        <br>
+        <h2><mark>6.結帳指示
+                <button class="btn btn-outline-warning" type="button" data-toggle="collapse" data-target="#wheremoneygo"
+                    aria-expanded="false" aria-controls="wheremoneygo">
+                    打開
+                </button></mark></h2>
+
+        <div id="wheremoneygo" class="collapse">
+            
+        <br><br><br>
             <h4 id="paypaypay"></h4>
         </div>
-<br>
-        <h2><mark>5.其他功能
+        <br>
+        <h2><mark>7.其他功能
                 <button class="btn btn-outline-secondary" type="button" data-toggle="collapse" data-target="#delll"
                     aria-expanded="false" aria-controls="delll">
                     打開
                 </button></mark></h2>
 
-        <div id= "delll" class="collapse">
+        <div id="delll" class="collapse">
             <h3> 顯示已刪除的資料
-            <table id="delllBill" class="table table-hover">
-                <thead>
-                    <tr>
-                        <th scope="col">ID</th>
-                        <th scope="col">付款人</th>
-                        <th scope="col">受益人</th>
-                        <th scope="col">錢</th>
-                        <th scope="col">備注</th>
-                        <th scope="col">上傳時間</th>
-                    </tr>
-                </thead>
-                <tbody>
-                </tbody>
-            </table>
+                <table id="delllBill" class="table table-hover">
+                    <thead>
+                        <tr>
+                            <th scope="col">ID</th>
+                            <th scope="col">付款人</th>
+                            <th scope="col">受益人</th>
+                            <th scope="col">錢</th>
+                            <th scope="col">備注</th>
+                            <th scope="col">上傳時間</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                    </tbody>
+                </table>
         </div>
     </div>
     </br>
@@ -201,9 +219,8 @@
             $('#nameShow').toggle();
         }
 
-        function my_key(e){
-            if(isNaN($('#howmuchmoney').val()) == true)
-            {   
+        function my_key(e) {
+            if (isNaN($('#howmuchmoney').val()) == true) {
                 alert('請輸入數字');
                 $('#howmuchmoney').val('');
             }
@@ -219,7 +236,7 @@
             let howmuchmoney = $('#howmuchmoney').val();
             let payMoneyNotes = $('#payMoneyNotes').val();
 
-            if(isNaN($('#howmuchmoney').val()) == true){
+            if (isNaN($('#howmuchmoney').val()) == true) {
                 alert('請輸入數字');
                 return;
             }
@@ -253,7 +270,7 @@
                     }
 
                     show($('#ecToken').val());
-                    
+
                     if ($('#ecToken').val() == null || $('#ecToken').val() == '') {
                         alert('請輸入TOKEN');
                         return;
@@ -404,31 +421,31 @@
 
         function createName() {
             let indexf = $('#createName').val();
-            var idx = indexf.indexOf(",") ;
-            var idxs = $('#createName').val().indexOf("，") ;
-            if(idx == -1 && idxs == -1 && $('#createName').val() != null && $('#createName').val() != ''){
+            var idx = indexf.indexOf(",");
+            var idxs = $('#createName').val().indexOf("，");
+            if (idx == -1 && idxs == -1 && $('#createName').val() != null && $('#createName').val() != '') {
                 axios.post('testdb2.php', {
-                    data: {
-                        action: 'createName',
-                        mainpeople: $('#createName').val(),
-                        token: createNamee,
-                    },
-                })
-                .then(function (response) {
-                    if(response.data == 'OKK'){
-                        alert('DONE');
-                    }else{
-                        alert('重覆');
-                    }
-                    createName2 = $('#createName').val();
-                    $('#nameShow').append(`<tr><td>${createName2}</td></tr>`);
-                    show($('#ecToken').val());
-                    $('#createName').val('');
-                })
-                .catch(function (error) {
-                    console.log(error);
-                });
-            }else{
+                        data: {
+                            action: 'createName',
+                            mainpeople: $('#createName').val(),
+                            token: createNamee,
+                        },
+                    })
+                    .then(function (response) {
+                        if (response.data == 'OKK') {
+                            alert('DONE');
+                        } else {
+                            alert('重覆');
+                        }
+                        createName2 = $('#createName').val();
+                        $('#nameShow').append(`<tr><td>${createName2}</td></tr>`);
+                        show($('#ecToken').val());
+                        $('#createName').val('');
+                    })
+                    .catch(function (error) {
+                        console.log(error);
+                    });
+            } else {
                 alert('請勿輸入禁止字元')
             }
         }
@@ -454,7 +471,7 @@
                 .catch(function (error) {
                     console.log(error);
                 });
-            }
+        }
 
         function showWaterBill() {
             axios.post('testdb2.php', {
@@ -486,7 +503,7 @@
                     console.log(error);
                 });
         }
-        
+
         function showdeldata() {
             axios.post('testdb2.php', {
                     data: {
@@ -538,19 +555,19 @@
                     }
                 }
             }
-            var itemtable=[];
+            var itemtable = [];
             for (let i = 0, len = families.length; i < len; i++) {
-                let aabb =families[i].name;
+                let aabb = families[i].name;
                 let ele2 = families[i].money.toFixed(2);
                 itemtable.push(
-                            `
+                    `
                                 <tr>
                                     <th onclick="eachpeoplefunction('${aabb}');" scope="row"><button type="button" class="btn btn-outline-info">${aabb}</button></th>
                                     <td> &emsp;   ||   &emsp; &emsp; </td>
                                     <td style="color:red;">${ele2}</td>
                                 </tr>
                             `
-                        );
+                );
             }
             $('#showPersonMoney > tbody').html(itemtable.join(''));
 
@@ -573,7 +590,7 @@
                         },
                     })
                     .then(function (response) {
-                      show($('#ecToken').val());
+                        show($('#ecToken').val());
                     })
                     .catch(function (error) {
                         console.log(error);
@@ -581,20 +598,20 @@
             }
         }
 
-        function shareLink(){
-			var dummy = document.createElement('input'),
-		//	text = window.location.href + `?token=${$('#ecToken').val()}`;
-			text = `http://mankinwong.xyz` + `?token=${$('#ecToken').val()}`;
-			document.body.appendChild(dummy);
-			dummy.value = text;
-			dummy.select();
-			document.execCommand('copy');
-			document.body.removeChild(dummy);
-			alert("已複製這次專案網址，可用於分享");
+        function shareLink() {
+            var dummy = document.createElement('input'),
+                //	text = window.location.href + `?token=${$('#ecToken').val()}`;
+                text = `http:/travelmoney.ga` + `?token=${$('#ecToken').val()}`;
+            document.body.appendChild(dummy);
+            dummy.value = text;
+            dummy.select();
+            document.execCommand('copy');
+            document.body.removeChild(dummy);
+            alert("已複製這次專案網址，可用於分享");
         }
 
         function eachpeoplefunction(people) {
-            
+
 
             axios.post('testdb2.php', {
                     data: {
@@ -608,12 +625,12 @@
                     item = [];
 
                     item.push(
-                            `
+                        `
                                 <tr>    
                                     <th scope="row">已付錢項目</th>
                                 </tr>
                             `
-                        );
+                    );
 
                     for (let i = 0, len = response.data[0].length; i < len; i++) {
                         item.push(
@@ -628,21 +645,21 @@
                     }
 
                     item.push(
-                            `
+                        `
                                 <tr>    
                                     <th scope="row">需要付款項目</th>
                                 </tr>
                             `
-                        );
-                    
+                    );
+
                     console.log(response.data);
-                    
+
                     for (let i = 0, len = response.data[1].length; i < len; i++) {
-                   //     console.log('111');
-                   //     console.log(response.data[1]);
-                         let a=response.data[1][i].usemoneypeople.split(',');
-                         let b=a.length;
-                         let c =(response.data[1][i].howmuchmoney)/b
+                        //     console.log('111');
+                        //     console.log(response.data[1]);
+                        let a = response.data[1][i].usemoneypeople.split(',');
+                        let b = a.length;
+                        let c = (response.data[1][i].howmuchmoney) / b
                         item.push(
                             `
                                 <tr>
@@ -687,17 +704,21 @@
 
                     if (z > 0) {
                         if (x * -1 != 0) {
-                            let output3=x*-1;
-                            let outputok3=output3.toFixed(2);
-                            $('#paypaypay').append(`${wtf[people].name} ==>${wtf[i].name} <button type="button"  class="btn btn-secondary btn-sm" onclick="autoPay('${wtf[people].name}','${wtf[i].name}','${outputok3}')">結算</button>`);
+                            let output3 = x * -1;
+                            let outputok3 = output3.toFixed(2);
+                            $('#paypaypay').append(
+                                `${wtf[people].name} ==>${wtf[i].name} <button type="button"  class="btn btn-secondary btn-sm" onclick="autoPay('${wtf[people].name}','${wtf[i].name}','${outputok3}')">結算</button>`
+                                );
                         }
 
                     } else {
                         if (y != 0) {
-                            let output4=x*-1;
-                            let outputok4=output4.toFixed(2);
+                            let output4 = x * -1;
+                            let outputok4 = output4.toFixed(2);
 
-                            $('#paypaypay').append(`${wtf[people].name} ==>${wtf[i].name} <button type="button"  class="btn btn-secondary btn-sm" onclick="autoPay('${wtf[people].name}','${wtf[i].name}','${outputok4}')">結算</button>`);
+                            $('#paypaypay').append(
+                                `${wtf[people].name} ==>${wtf[i].name} <button type="button"  class="btn btn-secondary btn-sm" onclick="autoPay('${wtf[people].name}','${wtf[i].name}','${outputok4}')">結算</button>`
+                                );
                         }
                     }
 
@@ -708,16 +729,16 @@
                     if (z > 0) {
                         wtf[people].money = z;
                         if (x * -1 != 0) {
-                            let output1=x*-1;
-                            outputok1=output1.toFixed(2);
+                            let output1 = x * -1;
+                            outputok1 = output1.toFixed(2);
                             $('#paypaypay').append(`<p style="color:red" >${outputok1} 元 <br></p>`);
                         }
                         z = 0;
                     } else {
                         people = people - 1;
                         if (y != 0) {
-                            let output2=y;
-                            outputok2=output2.toFixed(2);
+                            let output2 = y;
+                            outputok2 = output2.toFixed(2);
                             $('#paypaypay').append(`<p style="color:red" >${outputok2} 元<br></p>`);
                         }
                     }
@@ -725,17 +746,15 @@
             }
         }
 
-        function autoPay(a,b,c){
+        function autoPay(a, b, c) {
             let d = '還錢(系統)';
-                let c1 = prompt(`${a}  ->>  ${b}  多少錢`,);
-                if(c1 == null || c1 == ""){
-                }else{
-                    dataToDB(a, b, c1, d);
-                    show($('#ecToken').val());
-                    alert('已完成結帳');
-                }
+            let c1 = prompt(`${a}  ->>  ${b}  多少錢`, );
+            if (c1 == null || c1 == "") {} else {
+                dataToDB(a, b, c1, d);
+                show($('#ecToken').val());
+                alert('已完成結帳');
+            }
         }
-
     </script>
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
         integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous">
@@ -845,7 +864,6 @@
             outline: solid 2px rgba(250, 128, 114, 0.5);
             outline-offset: 1px;
         }
-
     </style>
 </body>
  
