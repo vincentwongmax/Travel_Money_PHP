@@ -2,7 +2,7 @@
 
 include_once 'resful.php';
 
-$classpdo = new DatabaseAccessObject('localhost','root','123456','travelmoney');
+$classpdo = new DatabaseAccessObject('localhost','root','123456','travelmoney'); //表格名改了的話，有關travelmoney 都要改 EX: deldata function 
 
 $a = json_decode(file_get_contents("php://input"),true);
 $c=$a["data"];
