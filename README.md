@@ -13,9 +13,9 @@
 
 ## 使用連結
 
-## https://travelmoney.ga
+## https://moneycheck.ga/money
 # 或
-## https://travelmoney.ga?token=123
+## https://moneycheck.ga/money?token=123
 
 ### token 後面的數字可以自行更改或輸入, 方便每次記帳時能夠直接進行相對應的帳目
 
