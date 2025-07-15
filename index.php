@@ -4,36 +4,28 @@
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css"
         integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
     <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
-
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta name="description" content="">
     <meta name="author" content="">
     <!-- <link rel="manifest" href="./manifest.webmanifest"> -->
-
-
-
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-title" content="WIN神App">
     <link rel="apple-touch-startup-image" href="./abc.png">
     <link rel="apple-touch-icon" href="./abc.png">
     <meta name="apple-mobile-web-app-status-bar-style" content="black">
-
     <link rel="icon" href="./abc.png">
     <meta name="mobile-web-app-capable" content="yes">
-
-
 </head>
 
 <body>
-
     <div class="modal fade" id="eachpeople" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
         aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+                    <!-- <h5 class="modal-title" id="exampleModalLabel">Modal title</h5> -->
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
@@ -49,14 +41,13 @@
         </div>
     </div>
 
-    <H1>旅行用記帳平分器 測試版V.0.065</H1>
-
+    <H1>旅行用記帳平分器 測試版V.0.07</H1>
     <div id="payMainMoneyPeople">
         <h2 id="tokenIsWhat"><mark>1. 請輸入或建立行程代號 <mark></h2>
-
         <input id="ecToken" required="required" type="text" name="token" placeholder="可數英中台語廣東語馬來文"></input>
         <button type="button" class="btn btn-outline-info" onclick="enterToken();">輸入</button>
         <button type="button" class="btn btn-outline-info" onclick="createToken()">建立</button>
+        <button type="button" class="btn btn-outline-secondary" onclick="generateRandomToken()">隨機產生</button>
     </div>
     <br>
     <div class="start" id="start" style="display:none;">
@@ -67,7 +58,6 @@
                         data-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
                         新增入物
                     </button>
-
                     <h2 id="nameShow" style="display:none;"></h2>
         </h2>
 
@@ -94,20 +84,22 @@
 
             <br><br>
             <h2>請輸入付款多少錢</h2>
-            <!-- onkeydown="return my_key(event)" -->
             <input id="howmuchmoney" onchange="return my_key(event)" required="required" type="number"
                 placeholder="請輸入付款多少錢"> </input>
             <br>
             <h2>請輸入備注</h2>
             <input id="payMoneyNotes" type="text" placeholder="請輸入備注"> </input>
             <br><br>
-
             <div id="userMoneyPeople">
-                <h1>受益人(可多選)</h1>
+                <h1 style="display: flex; align-items: center;">
+                    受益人(可多選)
+                    <button type="button" class="btn btn-sm btn-outline-primary ml-3" onclick="toggleSelectAllBeneficiaries(this)">
+                        全選
+                    </button>
+                </h1>
+
                 <table id="userMoneyPeople2" class="table table-bordered">
-
                     <tbody>
-
                     </tbody>
                 </table>
                 <h4></h4>
@@ -138,16 +130,13 @@
                 </tbody>
             </table>
             <br>
-
         </div>
         <br>
-
         <h2><mark>5.個人明細
                 <button class="btn btn-outline-warning" type="button" data-toggle="collapse" data-target="#personal"
                     aria-expanded="false" aria-controls="personal">
                     打開
                 </button></mark></h2>
-
         <div id="personal" class="collapse">
             <table id="showPersonMoney" class=" table-Light">
                 <thead>
@@ -224,6 +213,40 @@
                 alert('請輸入數字');
                 $('#howmuchmoney').val('');
             }
+        }
+
+        function generateRandomToken() {
+            const words = [
+                "travel", "trip", "journey", "adventure", "explore", "holiday", "vacation", "tour", "roam", "wander",
+                "flight", "ticket", "passport", "visa", "luggage", "suitcase", "backpack", "bag", "pack", "carry",
+                "hotel", "hostel", "inn", "resort", "guesthouse", "camp", "tent", "cabin", "villa",
+                "beach", "island", "mountain", "forest", "desert", "lake", "river", "sea", "ocean", "bay",
+                "city", "town", "village", "country", "nation", "region", "place", "spot", "site", "area",
+                "guide", "map", "plan", "route", "path", "trail", "track", "road", "highway", "station",
+                "bus", "train", "plane", "flight", "car", "taxi", "bike", "boat", "ship", "ferry",
+                "adventure", "explore", "discover", "enjoy", "relax", "fun", "happy", "smile", "group", "friend",
+                "photo", "camera", "memory", "story", "moment", "experience", "culture", "local", "food", "drink",
+                "ticket", "booking", "reservation", "checkin", "checkout", "arrival", "departure", "schedule", "itinerary", "plan",
+                "sun", "sky", "cloud", "rain", "wind", "snow", "star", "moon", "nature", "wild"
+            ];
+            let randomWord = words[Math.floor(Math.random() * words.length)];
+            let now = new Date();
+            let yyyy = now.getFullYear();
+            let mm = String(now.getMonth() + 1).padStart(2, '0');
+            let dd = String(now.getDate()).padStart(2, '0');
+            let dateStr = yyyy + mm + dd;
+            let token = randomWord + dateStr;
+            document.getElementById('ecToken').value = token;
+        }
+
+        function toggleSelectAllBeneficiaries(btn) {
+            // 取得所有受益人checkbox
+            var checkboxes = document.querySelectorAll('#userMoneyPeople2 input[type="checkbox"][name="boxs"]');
+            // 判斷是否已全選
+            var allChecked = Array.from(checkboxes).every(cb => cb.checked);
+            checkboxes.forEach(cb => cb.checked = !allChecked);
+            // 按鈕文字切換
+            btn.textContent = allChecked ? '全選' : '全不選';
         }
 
         function getAll() {
@@ -598,10 +621,32 @@
             }
         }
 
+
+
+        
+        // function shareLink() {
+        //     var dummy = document.createElement('input'),
+        //         text = window.location.href;
+        //     document.body.appendChild(dummy);
+        //     dummy.value = text;
+        //     dummy.select();
+        //     document.execCommand('copy');
+        //     document.body.removeChild(dummy);
+        //     alert("已複製這次專案網址，可用於分享");
+        // }
+
         function shareLink() {
             var dummy = document.createElement('input'),
-                //	text = window.location.href + `?token=${$('#ecToken').val()}`;
-                text = `http:/travelmoney.ga` + `?token=${$('#ecToken').val()}`;
+
+                link = window.location.href
+
+                if (link.indexOf('?') !== -1) {
+                    link = link.substring(0, link.indexOf('?'));
+                }
+
+                text = link + `?token=${$('#ecToken').val()}`;
+                
+               // text = `http:/travelmoney.ga` + `?token=${$('#ecToken').val()}`;
             document.body.appendChild(dummy);
             dummy.value = text;
             dummy.select();
@@ -610,76 +655,172 @@
             alert("已複製這次專案網址，可用於分享");
         }
 
+        // 新增：控制是否顯示時間
+        let showEachPeopleTime = true;
+
+        function toggleEachPeopleTime() {
+            showEachPeopleTime = !showEachPeopleTime;
+            // 重新載入上次查詢的人名
+            if (window.lastEachPeopleName) {
+            eachpeoplefunction(window.lastEachPeopleName);
+            }
+        }
+
         function eachpeoplefunction(people) {
-
-
+            window.lastEachPeopleName = people; // 記錄上次查詢的人名
             axios.post('testdb2.php', {
-                    data: {
-                        ecToken: $('#ecToken').val(),
-                        action: 'eachpeople',
-                        eachpeople: people,
-                    },
-                })
-                .then(function (response) {
-                    $('#eachpeople-modal-body').html('');
-                    item = [];
+            data: {
+            ecToken: $('#ecToken').val(),
+            action: 'eachpeople',
+            eachpeople: people,
+            },
+            })
+            .then(function (response) {
+            let item = [];
 
-                    item.push(
-                        `
-                                <tr>    
-                                    <th scope="row">已付錢項目</th>
-                                </tr>
-                            `
-                    );
+            // 標題
+            item.push(`
+            <tr>
+            <th colspan="3" style="text-align:center; background:linear-gradient(90deg, #f8d7da 0%, #ffe5ec 100%); color:#b71c1c; padding:22px 10px 18px 10px; border-radius:16px 16px 0 0; box-shadow:0 2px 8px #f8bbd0;">
+            <span style="font-size:1.7em; font-weight:bold; letter-spacing:2px;">
+            <i class="fas fa-user-circle" style="margin-right:10px; color:#b71c1c;"></i>
+            個人帳單 <span style="color:#880e4f;">(${people})</span>
+            </span>
+            </th>
+            </tr>
+            `);
 
-                    for (let i = 0, len = response.data[0].length; i < len; i++) {
-                        item.push(
-                            `
-                                <tr>    
-                                    <td>筆記:${response.data[0][i].notes}----</td>
-                                    <td style="color:red" >金額:${response.data[0][i].howmuchmoney}</td>
-                                    <td>----日期:${response.data[0][i].adddatatime}</td>
-                                </tr>
-                            `
-                        );
-                    }
+            // 切換顯示時間按鈕
+            item.push(`
+            <tr>
+                <td colspan="3" style="text-align:right; background:#fff;">
+                    <div style="display:flex; justify-content:flex-end; gap:8px;">
+                        <button type="button" class="btn btn-sm btn-outline-secondary" onclick="toggleEachPeopleTime()">
+                            ${showEachPeopleTime ? '隱藏時間' : '顯示時間'}
+                        </button>
+                        <button type="button" class="btn btn-sm btn-outline-info" style="margin-left:8px;" onclick="window.showDetailOwed = !window.showDetailOwed; eachpeoplefunction('${people}');">
+                            ${window.showDetailOwed ? '隱藏詳細' : '顯示詳細'}
+                        </button>
+                    </div>
+                </td>
+            </tr>
+            `);
 
-                    item.push(
-                        `
-                                <tr>    
-                                    <th scope="row">需要付款項目</th>
-                                </tr>
-                            `
-                    );
+            // 已付錢項目
+            item.push(`
+            <tr>
+            <th colspan="3" style="background:linear-gradient(90deg,#e8f5e9 0%,#f1f8e9 100%);color:#388e3c;font-size:1.1em;padding:10px 0;">
+            <i class="fas fa-wallet" style="margin-right:6px;color:#616161;"></i>代付錢項目
+            </th>
+            </tr>
+            `);
 
-                    console.log(response.data);
+            let totalPaid = 0;
+            if (response.data[0].length > 0) {
+                for (let i = 0; i < response.data[0].length; i++) {
+                let money = Number(response.data[0][i].howmuchmoney).toFixed(3);
+                totalPaid += Number(response.data[0][i].howmuchmoney);
+                item.push(`
+                <tr style="background:#f9fbe7;">
+                <td style="vertical-align:middle;"><span style="font-weight:bold;color:#616161;">${response.data[0][i].notes}</span></td>
+                <td style="color:#d84315;font-weight:bold;vertical-align:middle;text-align:right;">+${money}</td>
+                <td style="font-size:0.95em;color:#757575;vertical-align:middle;${showEachPeopleTime ? '' : 'display:none;'}">${response.data[0][i].adddatatime}</td>
+                </tr>
+                `);
+                }
+            } else {
+                item.push(`
+                <tr>
+                <td colspan="3" style="color:gray;text-align:center;">沒有代付錢項目</td>
+                </tr>
+                `);
+            }
+            item.push(`
+            <tr>
+            <td colspan="3" style="text-align:right;font-weight:bold;background:#e8f5e9;">
+            代付款金額小結: <span style="color:#d84315;font-size:1.1em;text-align:right;display:inline-block;min-width:90px;">+${totalPaid.toFixed(3)}</span>
+            </td>
+            </tr>
+            `);
 
-                    for (let i = 0, len = response.data[1].length; i < len; i++) {
-                        //     console.log('111');
-                        //     console.log(response.data[1]);
-                        let a = response.data[1][i].usemoneypeople.split(',');
-                        let b = a.length;
-                        let c = (response.data[1][i].howmuchmoney) / b
-                        item.push(
-                            `
-                                <tr>
-                                    <td> 筆記 : ${response.data[1][i].notes}----</td>
-                                    <td style="color:red" > 金額 : -${c}</td>
-                                    <td>----日期:${response.data[1][i].adddatatime}  </td>
-                                </tr>
-                            `
-                        );
-                    }
+            // 需要付款項目
+            item.push(`
+            <tr>
+            <th colspan="3" style="background:linear-gradient(90deg,#f5f5f5 0%,#eeeeee 100%);color:#616161;font-size:1.1em;padding:10px 0;">
+            <i class="fas fa-hand-holding-usd" style="margin-right:6px;color:#616161;"></i>需要付款項目
+            </th>
+            </tr>
+            `);
 
-                    $('#eachpeople-modal-body').html(item.join(''));
-                })
-                .catch(function (error) {
-                    console.log(error);
-                });
+            // 詳細版切換
+            let showDetailOwed = window.showDetailOwed !== undefined ? window.showDetailOwed : false;
+    
+            let totalOwed = 0;
+            if (response.data[1].length > 0) {
+                for (let i = 0; i < response.data[1].length; i++) {
+                let a = response.data[1][i].usemoneypeople.split(',');
+                let b = a.length;
+                let c = (Number(response.data[1][i].howmuchmoney) / b).toFixed(3);
+                totalOwed += Number(c);
+
+                // 詳細版內容
+                let detailHtml = '';
+                if (showDetailOwed) {
+                    detailHtml = `<div style="font-size:0.9em;color:#888;">${response.data[1][i].howmuchmoney} ÷ ${b} = ${c}</div>`;
+                }
+
+                item.push(`
+                <tr style="background:#f5f5f5;">
+                <td style="vertical-align:middle;">
+                    <span style="font-weight:bold;color:#616161;">${response.data[1][i].notes}</span>
+                    ${detailHtml}
+                </td>
+                <td style="color:#1976d2;font-weight:bold;vertical-align:middle;text-align:right;">-${c}</td>
+                <td style="font-size:0.95em;color:#757575;vertical-align:middle;${showEachPeopleTime ? '' : 'display:none;'}">${response.data[1][i].adddatatime}</td>
+                </tr>
+                `);
+                }
+            } else {
+                item.push(`
+                <tr>
+                <td colspan="3" style="color:gray;text-align:center;">沒有需要付款項目</td>
+                </tr>
+                `);
+            }
+            item.push(`
+            <tr>
+            <td colspan="3" style="text-align:right;font-weight:bold;background:#f5f5f5;">
+            需要付款金額小結: <span style="color:#1976d2;font-size:1.1em;text-align:right;display:inline-block;min-width:90px;">-${totalOwed.toFixed(3)}</span>
+            </td>
+            </tr>
+            `);
+
+            // 總結
+            let net = (totalPaid - totalOwed).toFixed(3);
+            let netColor = net >= 0 ? "#388e3c" : "#d32f2f";
+            let netSign = net >= 0 ? "+" : "";
+            item.push(`
+            <tr>
+            <td colspan="3" style="text-align:right;font-weight:bold;font-size:1.2em;background:linear-gradient(90deg,#e3f2fd 0%,#fce4ec 100%);border-radius:0 0 12px 12px;">
+            <span style="color:#616161;">個人結餘：</span>
+            <span style="color:${netColor};text-align:right;display:inline-block;min-width:90px;">${netSign}${net}</span>
+            </td>
+            </tr>
+            `);
+
+            $('#eachpeople-modal-body').html(`
+            <table class="table table-bordered table-sm mb-0" style="background:#fff;border-radius:16px;overflow:hidden;box-shadow:0 2px 12px #f8bbd0;">
+            <tbody>
+            ${item.join('')}
+            </tbody>
+            </table>
+            `);
+            })
+            .catch(function (error) {
+            console.log(error);
+            });
 
             $('#eachpeople').modal('show');
-
-
         }
 
         function sortByKey(array, key) { //排序JSON 
