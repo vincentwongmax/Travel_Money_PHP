@@ -78,7 +78,7 @@
         <div id="recordItNow" class="collapse">
             <div id="payMainMoneyPeople">
                 <h1>付錢人(單選)</h1>
-                <h3 id="payMainMoneyPeople2"></h3>
+                <h3 id="payMainMoneyPeople2" ></h3>
                 </h1>
             </div>
 
@@ -133,7 +133,7 @@
         </div>
         <br>
         <h2><mark>5.個人明細
-                <button class="btn btn-outline-warning" type="button" data-toggle="collapse" data-target="#personal"
+                <button class="btn btn-outline-primary" type="button" data-toggle="collapse" data-target="#personal"
                     aria-expanded="false" aria-controls="personal">
                     打開
                 </button></mark></h2>
@@ -154,14 +154,14 @@
         </div>
         <br>
         <h2><mark>6.結帳指示
-                <button class="btn btn-outline-warning" type="button" data-toggle="collapse" data-target="#wheremoneygo"
+                <button class="btn btn-outline-info" type="button" data-toggle="collapse" data-target="#wheremoneygo"
                     aria-expanded="false" aria-controls="wheremoneygo">
                     打開
                 </button></mark></h2>
 
         <div id="wheremoneygo" class="collapse">
             
-        <br><br><br>
+        
             <h4 id="paypaypay"></h4>
         </div>
         <br>
@@ -928,265 +928,98 @@
 
     <style>
         body {
-            background: linear-gradient(135deg, #e3f2fd 0%, #f7f9fb 100%);
-            font-family: 'Segoe UI', 'Noto Sans TC', 'Meiryo', 'Microsoft JhengHei', Arial, sans-serif;
-            font-size: 16px;
-            color: #222;
+            display: block;
             margin: 0;
-            min-height: 100vh;
-            /* 讓內容置中 */
-            display: flex;
-            flex-direction: column;
-            align-items: center;
         }
-        main, .main-content {
-            width: 100%;
-            max-width: 980px;
-            margin: 0 auto;
-            flex: 1 0 auto;
+
+        div {
+            display: block;
         }
-        h1, h2, h3, h4 {
-            font-weight: 700;
-            letter-spacing: 1.5px;
+
+        label {
+            cursor: default;
         }
-        h1 {
-            font-size: 2.3em;
-            margin: 44px 0 26px 0;
-            text-align: center;
-            color: #1565c0;
-            letter-spacing: 3px;
-            text-shadow: 0 2px 12px #e3e3e3;
+
+        input {
+            display: inline-block;
+            color: inherit;
+            font: inherit;
+            text-rendering: auto;
+            letter-spacing: normal;
+            word-spacing: normal;
+            text-transform: none;
+            text-indent: 0px;
+            text-shadow: none;
+            text-align: start;
+            -webkit-rtl-ordering: logical;
+            -webkit-writing-mode: horizontal-tb;
         }
-        h2, h3 {
-            margin-top: 22px;
-            margin-bottom: 14px;
-        }
-        mark {
-            background: linear-gradient(90deg, #e3f2fd 60%, #fffde7 100%);
-            color: #1976d2;
-            border-radius: 10px;
-            padding: 4px 14px;
-            font-size: 1.1em;
-            font-weight: 600;
-            box-shadow: 0 1px 6px #e3e3e3;
-        }
-        .start, #payMainMoneyPeople, #recordItNow, #showbill, #personal, #wheremoneygo, #delll {
-            background: #fff;
-            border-radius: 24px;
-            box-shadow: 0 6px 36px #b3c6e033;
-            padding: 36px 32px 26px 32px;
-            margin-bottom: 36px;
-            max-width: 900px;
-            margin-left: auto;
-            margin-right: auto;
-            border: 2px solid #e3f2fd;
-            transition: box-shadow 0.2s, border 0.2s;
-            position: relative;
-        }
-        .start:hover, #payMainMoneyPeople:hover, #recordItNow:hover, #showbill:hover, #personal:hover, #wheremoneygo:hover, #delll:hover {
-            box-shadow: 0 12px 48px #90caf966;
-            border-color: #90caf9;
-        }
-        .collapse {
-            margin-top: 14px;
-            margin-bottom: 14px;
-        }
-        input[type="text"], input[type="number"] {
-            border: 2px solid #bbdefb;
-            border-radius: 12px;
-            padding: 12px 18px;
-            font-size: 1.1em;
-            margin: 10px 0 16px 0;
-            width: 100%;
-            max-width: 360px;
-            background: #f8fafc;
-            transition: border 0.2s, box-shadow 0.2s;
-            box-shadow: 0 2px 8px #e3e3e3;
-        }
-        input[type="text"]:focus, input[type="number"]:focus {
-            border: 2.5px solid #1976d2;
-            outline: none;
-            background: #fff;
-            box-shadow: 0 4px 16px #bbdefb66;
-        }
-        button, .btn {
-            border-radius: 12px !important;
-            font-weight: 600;
-            letter-spacing: 1.2px;
-            transition: box-shadow 0.2s, background 0.2s, color 0.2s;
-            margin-bottom: 4px;
-            padding: 9px 22px;
-            font-size: 1.05em;
-            box-shadow: 0 2px 8px #e3e3e3;
-            border-width: 2px;
-        }
-        .btn-outline-info, .btn-outline-success, .btn-outline-danger, .btn-outline-warning, .btn-outline-secondary, .btn-outline-primary {
-            background: #f7f9fb;
-        }
-        .btn:active, .btn:focus {
-            box-shadow: 0 2px 16px #b3e5fc !important;
-            background: #e3f2fd !important;
-            color: #1976d2 !important;
-        }
-        .btn-primary, .btn-info, .btn-success, .btn-warning, .btn-danger {
-            color: #fff !important;
-        }
-        .btn:hover, button:hover {
-            background: #1976d2 !important;
-            color: #fff !important;
-            border-color: #1976d2 !important;
-            box-shadow: 0 4px 16px #90caf9 !important;
-        }
-        .table {
-            background: #fff;
-            border-radius: 16px;
-            overflow: hidden;
-            box-shadow: 0 2px 16px #e0e0e0;
-            margin-bottom: 0;
-        }
-        .table th, .table td {
-            vertical-align: middle !important;
-            font-size: 1.08em;
-            padding: 14px 12px;
-        }
-        .table thead th {
-            background: linear-gradient(90deg, #e3f2fd 80%, #fffde7 100%);
-            color: #1976d2;
-            border-bottom: 2px solid #bbdefb;
-            font-size: 1.12em;
-        }
-        .table-hover tbody tr:hover {
-            background: #f1f8ff;
-            transition: background 0.2s;
-        }
-        .modal-content {
-            border-radius: 26px;
-            box-shadow: 0 12px 64px #b3c6e0;
-            border: 2px solid #e3f2fd;
-        }
-        .modal-header {
-            border-bottom: none;
-            border-radius: 26px 26px 0 0;
-            background: linear-gradient(90deg, #e3f2fd 80%, #fffde7 100%);
-        }
-        .modal-footer {
-            border-top: none;
-            border-radius: 0 0 26px 26px;
-            background: #f7f9fb;
-        }
-        #eachpeople-modal-body {
-            padding: 0;
-        }
-        .d1 {
-            margin: 16px 0 0 0;
+
+        input[type="checkbox"],
+        input[type="radio"] {
+            -webkit-appearance: none;
+            margin: 0;
+            box-sizing: inherit;
             border: none;
+            background-color: inherit;
             padding: 0;
+            cursor: pointer;
+        }
+
+        body {
+            font-family: "Hiragino kaku Gothic Pro", "Meiryo", sans-serif;
+            font-size: 16px;
+            line-height: 1.5;
+        }
+
+        .d1 {
+            margin: 20px;
+            border: 1px dashed black;
+            padding: 20px 0 0 20px;
             display: flex;
             flex-wrap: wrap;
-            gap: 14px;
         }
+
         .d2 {
-            margin: 0 14px 14px 0;
-            border: 2.5px solid #90caf9;
-            background: #e3f2fd;
-            padding: 14px 0 0 14px;
-            color: #1976d2;
-            border-radius: 14px;
+            margin: 0px 20px 20px 0px;
+            box-sizing: border-box;
+            max-width: calc(50em + (20px + 1px) * 2);
+            border: 1px solid salmon;
+            background-color: rgba(250, 128, 114, 0.2);
+            padding: 20px 0 0 20px;
+            color: salmon;
         }
+
         .d3 {
-            margin: 0 0 14px 0;
+            margin: 0 calc(20px - 5px) calc(20px - 5px) 0;
         }
+
         .d3 input[type="radio"]+span,
         .d3 input[type="checkbox"]+span {
             display: inline-block;
-            margin: 0 9px 9px 0;
+            margin: 0px 5px 5px 0px;
             cursor: pointer;
-            border: solid 2.5px #90caf9;
-            background: #fff;
-            padding: 12px 26px;
-            border-radius: 12px;
-            font-size: 1.08em;
-            transition: background 0.2s, color 0.2s, border 0.2s;
-            box-shadow: 0 2px 8px #e3e3e3;
+            border: solid 1px salmon;
+            background-color: rgba(255, 255, 255, 0.9);
+            padding: 10px 20px;
         }
+
         .d3 input[type="radio"]:checked+span,
         .d3 input[type="checkbox"]:checked+span {
-            background: linear-gradient(90deg, #1976d2 80%, #64b5f6 100%);
-            color: #fff;
-            border-color: #1976d2;
+            background-color: rgba(250, 128, 114, 0.7);
+            color: rgba(255, 255, 255, 0.9);
         }
+
         .d3 input[type="radio"]:hover+span,
         .d3 input[type="checkbox"]:hover+span {
-            border-color: #64b5f6;
-            color: #1976d2;
-            background: #e3f2fd;
+            border-color: rgba(250, 128, 114, 0.5);
+            color: rgba(250, 128, 114, 0.5);
         }
+
         .d3 input[type="radio"]:focus+span,
         .d3 input[type="checkbox"]:focus+span {
-            outline: solid 2px #90caf9;
+            outline: solid 2px rgba(250, 128, 114, 0.5);
             outline-offset: 1px;
-        }
-        .collapse.show {
-            box-shadow: 0 2px 16px #e3e3e3;
-            border-radius: 16px;
-            background: #f8fafc;
-            padding: 22px 20px;
-        }
-        .start > h2, #payMainMoneyPeople > h2, #recordItNow > h2, #showbill > h2, #personal > h2, #wheremoneygo > h2, #delll > h2 {
-            border-bottom: 2.5px solid #e3e3e3;
-            padding-bottom: 10px;
-            margin-bottom: 24px;
-        }
-        .btn-outline-warning, .btn-outline-danger, .btn-outline-success, .btn-outline-info, .btn-outline-secondary, .btn-outline-primary {
-            margin-right: 12px;
-        }
-        #userMoneyPeople h1 {
-            justify-content: space-between;
-        }
-        #showPersonMoney th, #showPersonMoney td {
-            font-size: 1.12em;
-            padding: 12px 10px;
-        }
-        #delllBill {
-            opacity: 0.88;
-        }
-        .collapse > * {
-            margin-bottom: 12px;
-        }
-        .modal-header .close {
-            font-size: 2.4rem;
-            color: #1976d2;
-            opacity: 0.7;
-            transition: color 0.2s;
-        }
-        .modal-header .close:hover {
-            color: #d84315;
-            opacity: 1;
-        }
-        /* 響應式設計 */
-        @media (max-width: 900px) {
-            .start, #payMainMoneyPeople, #recordItNow, #showbill, #personal, #wheremoneygo, #delll {
-                padding: 16px 2vw 14px 2vw;
-                border-radius: 12px;
-            }
-            h1 {
-                font-size: 1.4em;
-            }
-        }
-        @media (max-width: 600px) {
-            .start, #payMainMoneyPeople, #recordItNow, #showbill, #personal, #wheremoneygo, #delll {
-                padding: 8px 1vw 8px 1vw;
-                border-radius: 8px;
-            }
-            h1 {
-                font-size: 1.1em;
-            }
-        }
-        .btn, button {
-            border-radius: 12px !important;
-        }
-        .start, #payMainMoneyPeople, #recordItNow, #showbill, #personal, #wheremoneygo, #delll {
-            margin-top: 28px;
         }
     </style>
 </body>
