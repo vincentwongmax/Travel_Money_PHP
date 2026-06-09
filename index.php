@@ -1,9 +1,44 @@
+<?php
+session_start();
+
+if (!isset($_SESSION['is_logged_in']) || $_SESSION['is_logged_in'] !== true) {
+        header("Location: error.php");
+        exit();
+}
+
+$username = isset($_SESSION['username']) ? $_SESSION['username'] : '用戶';
+
+?>
+
 <head>
     <meta charset="UTF-8">
     <title>旅行用記帳器</title>
+    <h3 class="card-title">歡迎回來，<?php echo htmlspecialchars($username); ?></h3>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css"
         integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
     <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+        <style>
+        /* RWD: 在多筆分配介面每一行增加分隔線 */
+        #splitRows .split-label { display: none; }
+        @media (max-width: 768px) {
+            #splitRows .split-row {
+                border-bottom: 1px solid #e0e0e0;
+                padding-bottom: 8px;
+                margin-bottom: 8px;
+            }
+            #splitRows .split-row:last-child {
+                border-bottom: none;
+                margin-bottom: 0;
+                padding-bottom: 0;
+            }
+            /* 在窄螢幕顯示每一行的欄位標題 */
+            #splitRows .split-label {
+                display: block;
+                font-weight: 600;
+                margin-bottom: 4px;
+            }
+        }
+        </style>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
@@ -77,12 +112,9 @@
 
         <div id="recordItNow" class="collapse">
             <div id="payMainMoneyPeople">
-                <h1>付錢人(單選)</h1>
-                <h3 id="payMainMoneyPeople2" ></h3>
-                </h1>
+                <div class="record-title">付錢人(單選)</div>
+                <div id="payMainMoneyPeople2" class="record-options"></div>
             </div>
-
-            <br><br>
             <h2>請輸入付款多少錢</h2>
             <input id="howmuchmoney" onchange="return my_key(event)" required="required" type="number"
                 placeholder="請輸入付款多少錢"> </input>
@@ -91,28 +123,63 @@
             <input id="payMoneyNotes" type="text" placeholder="請輸入備注"> </input>
             <br><br>
             <div id="userMoneyPeople">
-                <h1 style="display: flex; align-items: center;">
-                    受益人(可多選)
+                <div class="record-title d-flex align-items-center">
+                    <span>受益人(可多選)</span>
                     <button type="button" class="btn btn-sm btn-outline-primary ml-3" onclick="toggleSelectAllBeneficiaries(this)">
                         全選
                     </button>
-                </h1>
+                </div>
 
                 <table id="userMoneyPeople2" class="table table-bordered">
                     <tbody>
                     </tbody>
                 </table>
-                <h4></h4>
-                </h1>
             </div>
-            <input type="button" class="btn btn-outline-info" value="提交" onclick="getAll()"><br />
+
+            <div class="mt-3">
+                <input type="button" class="btn btn-outline-info" value="提交" onclick="getAll()"><br />
+            </div>
         </div>
         <br>
-        <h2><mark>4.顯示明細
+        <h2><mark>4.記帳PLUS
+                <button class="btn btn-outline-danger" type="button" data-toggle="collapse" data-target="#advancedSplitPanel"
+                    aria-expanded="false" aria-controls="advancedSplitPanel">
+                    打開
+                </button></mark></h2>
+
+        <div id="advancedSplitPanel" class="collapse card p-3 mt-3" style="background:#f8f9fa;">
+            <div class="d-flex justify-content-between align-items-center mb-2">
+                <div><strong>多筆分配介面</strong>：可針對同一總金額，按行新增付款人 / 使用人 / 金額 / 內容。</div>
+            </div>
+            <div class="form-row mb-3">
+                <div class="form-group col-md-4">
+                    <label>總金額</label>
+                    <input id="splitTotalAmount" type="number" min="0" class="form-control" placeholder="輸入總金額" onchange="updateSplitSummary()" />
+                </div>
+                <div class="form-group col-md-8">
+                    <label>總帳單內容</label>
+                    <input id="splitTotalNote" type="text" class="form-control" placeholder="輸入總帳單備註，例如：QWERT" />
+                </div>
+            </div>
+            <div id="splitRows"></div>
+            <div class="mt-2">
+                <div id="splitSummary" style="font-weight:bold;">已分配: 0 / 總金額: 0，誤差: 0</div>
+                <small class="text-muted">請使用上方「總金額」輸入欄位作為分配依據。</small>
+            </div>
+            <div class="mt-2 d-flex align-items-center">
+                <button type="button" class="btn btn-sm btn-outline-primary mr-2" onclick="addSplitRow()">新增筆數</button>
+                <button type="button" class="btn btn-outline-success" onclick="submitSplitRows()">提交</button>
+            </div>
+        </div>
+
+        <br>
+        <h2><mark>5.顯示明細
                 <button class="btn btn-outline-warning" type="button" data-toggle="collapse" data-target="#showbill"
                     aria-expanded="false" aria-controls="showbill">
                     打開
-                </button></mark></h2>
+                </button>
+                <button class="btn btn-outline-secondary ml-2" type="button" onclick="refreshDatabase()">刷新數據庫</button>
+            </mark></h2>
 
         <div id="showbill" class="collapse">
             <table id="showWaterBill" class="table table-hover">
@@ -132,7 +199,7 @@
             <br>
         </div>
         <br>
-        <h2><mark>5.個人明細
+        <h2><mark>6.個人明細
                 <button class="btn btn-outline-primary" type="button" data-toggle="collapse" data-target="#personal"
                     aria-expanded="false" aria-controls="personal">
                     打開
@@ -153,7 +220,7 @@
             </table>
         </div>
         <br>
-        <h2><mark>6.結帳指示
+        <h2><mark>7.結帳指示
                 <button class="btn btn-outline-info" type="button" data-toggle="collapse" data-target="#wheremoneygo"
                     aria-expanded="false" aria-controls="wheremoneygo">
                     打開
@@ -165,7 +232,7 @@
             <h4 id="paypaypay"></h4>
         </div>
         <br>
-        <h2><mark>7.其他功能
+        <h2><mark>8.其他功能
                 <button class="btn btn-outline-secondary" type="button" data-toggle="collapse" data-target="#delll"
                     aria-expanded="false" aria-controls="delll">
                     打開
@@ -249,6 +316,29 @@
             btn.textContent = allChecked ? '全選' : '全不選';
         }
 
+        function submitEntry(payMainMoneyPeople, userMoneyPeople, howmuchmoney, payMoneyNotes) {
+            return axios.post('testdb2.php', {
+                    data: {
+                        action: 'dataToDB',
+                        payMainMoneyPeople: payMainMoneyPeople,
+                        userMoneyPeople: userMoneyPeople,
+                        howmuchmoney: howmuchmoney,
+                        payMoneyNotes: payMoneyNotes,
+                        token: createNamee,
+                    },
+                })
+                .then(function (response) {
+                    if (response.request.responseText == '["NOOOOOOO"]') {
+                        throw new Error('有錯哦，請注意備注是否有重覆');
+                    }
+                    return response;
+                })
+                .catch(function (error) {
+                    console.log(error);
+                    throw error;
+                });
+        }
+
         function getAll() {
             let payMainMoneyPeople = $('input:radio[name="box"]:checked').map(function () {
                 return $(this).val();
@@ -264,20 +354,267 @@
                 return;
             }
 
-            if (payMainMoneyPeople == undefined || userMoneyPeople == undefined || howmuchmoney == undefined ||
-                howmuchmoney == 0) {
-                alert("輸入內容不允許為空")
-            } else {
-                if (payMainMoneyPeople == '' || userMoneyPeople == '' || howmuchmoney == '') {
-                    alert("輸入內容不允許為空")
-                } else {
-                    dataToDB(payMainMoneyPeople, userMoneyPeople, howmuchmoney, payMoneyNotes);
-                }
+            if (!payMainMoneyPeople || !userMoneyPeople || !howmuchmoney || howmuchmoney == 0) {
+                alert("輸入內容不允許為空");
+                return;
             }
-            show($('#ecToken').val());
-            $('#howmuchmoney').val('');
-            $('#payMoneyNotes').val('')
 
+            submitEntry(payMainMoneyPeople, userMoneyPeople, howmuchmoney, payMoneyNotes)
+                .then(function () {
+                    alert('DONE');
+                    show($('#ecToken').val());
+                    $('#howmuchmoney').val('');
+                    $('#payMoneyNotes').val('');
+                })
+                .catch(function (error) {
+                    if (error && error.message) {
+                        alert(error.message);
+                    }
+                });
+        }
+
+        function toggleAdvancedSplit() {
+            const panel = document.getElementById('advancedSplitPanel');
+            const wasHidden = panel.style.display !== 'block';
+            panel.style.display = wasHidden ? 'block' : 'none';
+            if (wasHidden) {
+                const topTotal = Number($('#howmuchmoney').val());
+                if (topTotal > 0 && !$('#splitTotalAmount').val()) {
+                    $('#splitTotalAmount').val(topTotal);
+                }
+                if (document.querySelectorAll('.split-row').length === 0) {
+                    addSplitRow();
+                }
+                updateSplitSummary();
+            }
+        }
+
+        function buildPayerHtml(selectedValue) {
+            return `
+                <select class="form-control split-payer-select" onchange="updateSplitSummary()">
+                    ${currentMembers.map(member => `<option value="${member}"${member === selectedValue ? ' selected' : ''}>${member}</option>`).join('')}
+                </select>
+            `;
+        }
+
+        function refreshSplitOptions() {
+            const checkboxHtml = currentMembers.map(member => `<label><input type="checkbox" class="split-user" value="${member}"><span> ${member} </span></label>`).join('');
+            document.querySelectorAll('.split-users').forEach(container => {
+                container.innerHTML = checkboxHtml;
+            });
+            document.querySelectorAll('.split-payer').forEach(container => {
+                const selected = container.querySelector('.split-payer-select') ? container.querySelector('.split-payer-select').value : null;
+                container.innerHTML = buildPayerHtml(selected);
+            });
+        }
+
+        function addSplitRow() {
+            if (currentMembers.length === 0) {
+                alert('請先輸入 TOKEN 並載入付款人名單');
+                return;
+            }
+            const lastRow = document.querySelector('#splitRows .split-row:last-child');
+            const lastPayer = lastRow ? lastRow.querySelector('.split-payer-select')?.value : '';
+            const selectedPayer = lastPayer && currentMembers.includes(lastPayer) ? lastPayer : (currentMembers[0] || '');
+            const row = document.createElement('div');
+            // 建立 split row（移除 mb-3 與 p-2，避免外部多餘間距）
+            row.className = 'split-row';
+            row.innerHTML = `
+                <div class="form-row no-gutters align-items-start">
+                    <div class="form-group col-auto split-index pr-1">
+                        <span class="index-num"></span>
+                    </div>
+                    <div class="form-group col-auto pr-1">
+                        <label class="split-label">付款人</label>
+                        <div class="split-payer d3">
+                            ${buildPayerHtml(selectedPayer)}
+                        </div>
+                    </div>
+                    <div class="form-group col-auto pr-1">
+                        <label class="split-label">使用人</label>
+                        <div class="split-users d3">
+                            ${currentMembers.map(member => `<label><input type="checkbox" class="split-user" value="${member}"><span> ${member} </span></label>`).join('')}
+                        </div>
+                    </div>
+                    <div class="form-group col px-1">
+                        <label class="split-label">金額</label>
+                        <input type="number" class="form-control split-amount" min="0" placeholder="0" onchange="updateSplitSummary()" onkeydown="splitAmountTabHandler(event)" />
+                    </div>
+                    <div class="form-group col px-1 split-content">
+                        <label class="split-label">內容</label>
+                        <div class="split-content-controls">
+                            <input type="text" class="form-control split-note" placeholder="內容" />
+                            <button type="button" class="btn btn-danger btn-sm split-delete-btn" onclick="removeSplitRow(this)">刪除</button>
+                        </div>
+                    </div>
+                </div>
+            `;
+            document.getElementById('splitRows').appendChild(row);
+            renumberSplitRows();
+            updateSplitSummary();
+        }
+
+        function removeSplitRow(button) {
+            const row = button.closest('.split-row');
+            if (row) {
+                row.remove();
+            }
+            renumberSplitRows();
+            updateSplitSummary();
+        }
+
+        function renumberSplitRows() {
+            const rows = Array.from(document.querySelectorAll('#splitRows .split-row'));
+            rows.forEach((r, idx) => {
+                const idxEl = r.querySelector('.index-num');
+                if (idxEl) idxEl.textContent = (idx + 1) + '.';
+            });
+        }
+
+        function getSplitTotalAmount() {
+            return Number($('#splitTotalAmount').val()) || 0;
+        }
+
+        function getSplitTotalNote() {
+            return $('#splitTotalNote').val().trim();
+        }
+
+        function updateSplitSummary() {
+            const totalAmount = getSplitTotalAmount();
+            const rowAmounts = Array.from(document.querySelectorAll('.split-amount')).map(el => Number(el.value) || 0);
+            const rowSum = rowAmounts.reduce((sum, value) => sum + value, 0);
+            const diff = Number((totalAmount - rowSum).toFixed(2));
+            const payers = Array.from(document.querySelectorAll('.split-row')).map(row => {
+                const payerSelect = row.querySelector('.split-payer-select');
+                return payerSelect ? payerSelect.value : '';
+            }).filter(payer => payer);
+            const uniquePayers = [...new Set(payers)];
+            const payerWarning = uniquePayers.length >= 2 ? ` <span style="color:red;">兩個付款人</span>` : '';
+            document.getElementById('splitSummary').innerHTML = `已分配: ${rowSum.toFixed(2)} / 總金額: ${totalAmount.toFixed(2)}，誤差: ${diff.toFixed(2)}${payerWarning}`;
+        }
+
+        function splitAmountTabHandler(event) {
+            if (event.key !== 'Tab') {
+                return;
+            }
+            event.preventDefault();
+            const amounts = Array.from(document.querySelectorAll('.split-amount'));
+            if (amounts.length === 0) {
+                return;
+            }
+            const currentIndex = amounts.indexOf(event.target);
+            if (currentIndex === -1) {
+                return;
+            }
+            let nextIndex = event.shiftKey ? currentIndex - 1 : currentIndex + 1;
+            if (nextIndex < 0) {
+                nextIndex = amounts.length - 1;
+            } else if (nextIndex >= amounts.length) {
+                nextIndex = 0;
+            }
+            amounts[nextIndex].focus();
+        }
+
+        function submitSplitRows() {
+            const totalAmount = getSplitTotalAmount();
+            const payMoneyNotes = getSplitTotalNote();
+
+            if (isNaN(totalAmount) || totalAmount <= 0) {
+                alert('請輸入正確的總金額');
+                return;
+            }
+
+            const rows = Array.from(document.querySelectorAll('.split-row'));
+            if (rows.length === 0) {
+                alert('請先新增一筆分配資料');
+                return;
+            }
+
+            const merged = {};
+            let sumAmount = 0;
+            const baseCode = Math.random().toString(36).slice(2, 7).toUpperCase();
+
+            function formatAmount(value) {
+                const formatted = parseFloat(value.toFixed(2));
+                return `$${formatted % 1 === 0 ? formatted.toFixed(0) : formatted.toFixed(2)}`;
+            }
+
+            for (const row of rows) {
+                const payerSelect = row.querySelector('.split-payer-select');
+                const payer = payerSelect ? payerSelect.value : '';
+                const amountInput = row.querySelector('.split-amount');
+                const amountValue = amountInput ? amountInput.value.trim() : '';
+                const amount = Number(amountValue);
+                const users = Array.from(row.querySelectorAll('.split-user:checked')).map(o => o.value);
+                const content = row.querySelector('.split-note').value.trim();
+
+                if (!payer || users.length === 0 || amountValue === '' || isNaN(amount)) {
+                    alert('請確認每一筆分配的付款人、使用人與金額都已填寫');
+                    return;
+                }
+
+                const perUser = amount / users.length;
+                sumAmount += amount;
+
+                users.forEach(user => {
+                    const key = `${payer}||${user}`;
+                    if (!merged[key]) {
+                        merged[key] = {
+                            payer,
+                            user,
+                            amount: 0,
+                            amountLabels: [],
+                            contentLabels: [],
+                        };
+                    }
+                    merged[key].amount += perUser;
+                    merged[key].amountLabels.push(formatAmount(perUser));
+                    merged[key].contentLabels.push(content ? content : '無備注');
+                });
+            }
+
+            if (Number(sumAmount.toFixed(2)) !== Number(totalAmount.toFixed(2))) {
+                alert('分配金額總和需等於總金額，請調整數值後再提交');
+                return;
+            }
+
+            const submitEntries = Object.values(merged);
+            if (submitEntries.length === 0) {
+                alert('沒有可提交的分配帳單');
+                return;
+            }
+
+            const uniqueUsers = Array.from(new Set(submitEntries.map(entry => entry.user)));
+            const userCount = uniqueUsers.length;
+
+            Promise.all(submitEntries.map(entry => {
+                const index = uniqueUsers.indexOf(entry.user) + 1;
+                const amountText = entry.amountLabels.join('+');
+                const contentText = entry.contentLabels.join('+');
+                const noteParts = [];
+                if (payMoneyNotes) noteParts.push(payMoneyNotes);
+                noteParts.push(amountText);
+                noteParts.push(contentText);
+                noteParts.push(baseCode);
+                noteParts.push(`${index}/${userCount}`);
+                const note = noteParts.join(' ');
+                return submitEntry(entry.payer, entry.user, entry.amount.toFixed(2), note);
+            }))
+            .then(function () {
+                alert('分配帳單已提交');
+                show($('#ecToken').val());
+                $('#howmuchmoney').val('');
+                $('#payMoneyNotes').val('');
+                $('#splitTotalAmount').val('');
+                $('#splitTotalNote').val('');
+                document.getElementById('splitRows').innerHTML = '';
+                updateSplitSummary();
+            })
+            .catch(function (error) {
+                if (error && error.message) {
+                    alert(error.message);
+                }
+            });
         }
 
         function enterToken() {
@@ -342,6 +679,7 @@
             'name': '',
             'money': 0,
         }, ];
+        var currentMembers = [];
 
         let show = (token) => {
             axios.post('testdb2.php', {
@@ -357,6 +695,7 @@
                     item2 = [];
                     item3 = [];
 
+                    currentMembers = [];
                     for (let i = 0, len = response.data.length; i < len; i++) {
                         number++;
                         item.push(
@@ -372,12 +711,14 @@
                         }
                         families[i].name = response.data[i].mainpeople;
                         families[i].money = 0;
+                        currentMembers.push(response.data[i].mainpeople);
                     }
 
                     $('#number').html('');
                     $('#nameShow').html('');
                     $('#number').html(`${response.data.length}位`);
                     $('#nameShow').html(item.join(''));
+                    refreshSplitOptions();
 
 
                     item2.push(
@@ -555,6 +896,19 @@
                 .catch(function (error) {
                     console.log(error);
                 });
+        }
+
+        function refreshDatabase() {
+            const token = $('#ecToken').val();
+            if (!token) {
+                alert('請先輸入 TOKEN 後再刷新');
+                return;
+            }
+            // 重新載入明細與已刪除資料
+            showWaterBill();
+            showdeldata();
+            // 也可同步重新載入成員清單
+            show(token);
         }
 
         function showWaterBillAccount(msg) {
@@ -974,7 +1328,8 @@
 
         .d1 {
             margin: 20px;
-            border: 1px dashed black;
+            /* 移除外框 */
+            border: none;
             padding: 20px 0 0 20px;
             display: flex;
             flex-wrap: wrap;
@@ -984,14 +1339,143 @@
             margin: 0px 20px 20px 0px;
             box-sizing: border-box;
             max-width: calc(50em + (20px + 1px) * 2);
-            border: 1px solid salmon;
+            /* 移除外框 */
+            border: none;
             background-color: rgba(250, 128, 114, 0.2);
             padding: 20px 0 0 20px;
             color: salmon;
         }
 
         .d3 {
-            margin: 0 calc(20px - 5px) calc(20px - 5px) 0;
+            /* 進一步減少使用人/付款人區塊高度與間距，縮小內部下方空白 */
+            margin: 0 10px 4px 0;
+            min-height: auto;
+            align-items: flex-start;
+        }
+
+        .split-row .form-group {
+            /* 減少每個欄位之間垂直間距 */
+            margin-bottom: 0.4rem;
+            padding-left: 0.25rem;
+            padding-right: 0.25rem;
+        }
+
+        .split-row .form-row {
+            width: 100%;
+            display: flex;
+            flex-wrap: wrap;
+            align-items: flex-start;
+        }
+
+        /* 移除由 bootstrap 'border' class 加上的外框 */
+        .split-row.border {
+            border: none !important;
+            box-shadow: none !important;
+        }
+
+        .split-row .form-group.col-auto {
+            flex: 0 0 auto;
+        }
+
+        .split-row .form-group.col {
+            min-width: 140px;
+            flex: 1 1 140px;
+        }
+
+        .split-payer,
+        .split-users {
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+        }
+
+        .split-payer-select {
+            width: 100%;
+        }
+
+        .record-title {
+            font-size: 1.25rem;
+            font-weight: 600;
+            margin-bottom: 0.75rem;
+        }
+
+        .record-title span {
+            display: inline-block;
+        }
+
+        .record-options {
+            margin-bottom: 0.75rem;
+        }
+
+        .split-amount,
+        .split-note {
+            min-width: 110px;
+            width: 100%;
+            max-width: 100%;
+        }
+
+        .split-delete-btn {
+            min-width: 70px;
+            max-width: 70px;
+        }
+
+        .split-index {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 36px;
+            padding-top: 0.1rem;
+            padding-bottom: 0.1rem;
+        }
+
+        /* 內容欄位與刪除按鈕同列排列，按鈕放在內容右方 */
+        .split-content {
+            display: flex;
+            align-items: center;
+            flex-wrap: wrap;
+        }
+
+        .split-content .split-note {
+            flex: 1 1 auto;
+            margin-right: 8px;
+        }
+
+        .split-delete-btn {
+            margin-left: 0;
+            flex: 0 0 auto;
+        }
+
+        /* 如果存在 label（只在第一筆會出現），把 label 放在輸入框上方 */
+        .split-content > label {
+            flex-basis: 100%;
+            display: block;
+            margin-bottom: 4px;
+        }
+
+        /* controls 容器：確保輸入框與刪除按鈕同排且不換行 */
+        .split-content-controls {
+            display: flex;
+            align-items: center;
+            width: 100%;
+            gap: 8px;
+            flex-wrap: nowrap;
+        }
+
+        .split-content-controls .split-note {
+            flex: 1 1 auto;
+            min-width: 0; /* allow shrinking inside flex */
+        }
+
+        .index-num {
+            font-weight: 700;
+            color: #333;
+        }
+
+        @media (max-width: 768px) {
+            .split-row .form-group {
+                flex: 1 1 100%;
+                min-width: 100%;
+            }
         }
 
         .d3 input[type="radio"]+span,
@@ -999,9 +1483,11 @@
             display: inline-block;
             margin: 0px 5px 5px 0px;
             cursor: pointer;
-            border: solid 1px salmon;
+            /* 移除選項外框 */
+            border: none;
             background-color: rgba(255, 255, 255, 0.9);
-            padding: 10px 20px;
+            /* 減少內部 padding，使選項高度更窄 */
+            padding: 6px 12px;
         }
 
         .d3 input[type="radio"]:checked+span,
@@ -1021,5 +1507,5 @@
             outline: solid 2px rgba(250, 128, 114, 0.5);
             outline-offset: 1px;
         }
-    </style>
+    </>
 </body>
